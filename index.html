@@ -835,7 +835,12 @@ function getTotalDailyRate() {
 
 // ============ REFERRAL SYSTEM ============
 async function registerReferral() {
+  console.log('🔍 URL search:', window.location.search);
+console.log('🔍 start_param:', window.Telegram?.WebApp?.initDataUnsafe?.start_param);
+console.log('🔍 initDataUnsafe:', window.Telegram?.WebApp?.initDataUnsafe);
   if (!supabaseClient) {
+    // === DEBUG ===
+
     console.warn('Supabase not available');
     return;
   }
