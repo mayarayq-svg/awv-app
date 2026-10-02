@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>AWV</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
@@ -1165,11 +1166,13 @@ body {
 <script>
 const CONFIG = {
   WEB3FORMS_KEY: '2fa732dc-e4c7-4107-a4c9-905929f52284',
-  BOT_USERNAME: 'YourBotName',
+  BOT_USERNAME: 'AWVEARNBot',
   WITHDRAW_MIN: 5,
   AWV_PER_GRAM: 5,
   STARTING_BALANCE: 1,
-  REFERRAL_REWARD: 0.02
+  REFERRAL_REWARD: 0.02,
+  SUPABASE_URL: 'https://geepmianewmjkttbnqkl.supabase.co/rest/v1/',
+  SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZXBtaWFuZXdtamt0dGJucWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NjU1ODIsImV4cCI6MjEwNjU0MTU4Mn0.Fv5DtKqIcNDyK1ifzZ-f_35-zjqOa8Wlq4IT7PXP5QM'
 };
 
 const VEHICLES = [
@@ -1527,6 +1530,95 @@ function createParticles() {
   }
 }
 
+
+  let supabase = null;
+try {
+  if (CONFIG.SUPABASE_URL && CONFIG.SUPABASE_URL.startsWith('https')) {
+    supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
+  }
+} catch (e) {
+  console.warn('Supabase error:', e);
+}
+
+async function registerReferral() {
+  if (!supabase) {
+    console.warn('Supabase not connected');
+    return;
+  }
+
+  try {
+    const tgId = state.user.id;
+    const firstName = state.user.name;
+
+    const params = new URLSearchParams(window.location.search);
+    let startParam = params.get('start');
+    if (!startParam && window.Telegram?.WebApp?.initDataUnsafe?.start_param) {
+      startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
+    }
+
+    let referrerId = null;
+    if (startParam && startParam.startsWith('ref_')) {
+      referrerId = startParam.replace('ref_', '');
+      if (String(referrerId) === String(tgId)) referrerId = null;
+    }
+
+    const { data: existing } = await supabase
+      .from('users')
+      .select('*')
+      .eq('telegram_id', tgId)
+      .maybeSingle();
+
+    if (existing) {
+      const { data: refs } = await supabase
+        .from('users')
+        .select('first_name, created_at')
+        .eq('referred_by', tgId)
+        .order('created_at', { ascending: false });
+
+      if (refs) {
+        state.referral.count = refs.length;
+        state.referral.totalIncome = refs.length * CONFIG.REFERRAL_REWARD;
+        state.referral.history = refs.map(r => ({
+          date: new Date(r.created_at).toLocaleDateString(),
+          user: r.first_name || 'User',
+          income: CONFIG.REFERRAL_REWARD.toFixed(2)
+        }));
+        renderReferralUI();
+      }
+      return;
+    }
+
+    await supabase.from('users').insert({
+      telegram_id: tgId,
+      first_name: firstName,
+      referred_by: referrerId,
+      balance: state.balance
+    });
+
+    if (referrerId) {
+      const { data: referrer } = await supabase
+        .from('users')
+        .select('balance, referral_earnings')
+        .eq('telegram_id', referrerId)
+        .maybeSingle();
+
+      if (referrer) {
+        await supabase
+          .from('users')
+          .update({
+            balance: (referrer.balance || 0) + CONFIG.REFERRAL_REWARD,
+            referral_earnings: (referrer.referral_earnings || 0) + CONFIG.REFERRAL_REWARD
+          })
+          .eq('telegram_id', referrerId);
+      }
+    }
+
+    console.log('✅ User registered. Referrer:', referrerId);
+  } catch (e) {
+    console.error('Referral error:', e);
+  }
+}
+
 function init() {
   loadState();
   if (!localStorage.getItem('awv_v9')) {
@@ -1536,6 +1628,7 @@ function init() {
   createParticles();
   updateUI();
   if (state.ownedVehicles.length > 0) startMining();
+  registerReferral();
 }
 
 init();
