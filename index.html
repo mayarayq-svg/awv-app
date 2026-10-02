@@ -121,7 +121,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .ref-stat-val { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 20px; font-weight: 800; color: #fff; }
 .ref-link-box { padding: 14px; margin-bottom: 10px; }
 .ref-link-display { background: rgba(10, 8, 25, 0.8); border: 1px solid rgba(120, 100, 200, 0.2); border-radius: 10px; padding: 12px; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--purple-light); word-break: break-all; margin-bottom: 11px; text-align: center; }
-.ref-actions { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.ref-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .ref-action-btn { padding: 14px; font-family: var(--sans); font-size: 13px; font-weight: 900; color: #fff; cursor: pointer; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--grad-purple); border: 1px solid rgba(200, 170, 255, 0.35); border-radius: 10px; box-shadow: 0 4px 12px rgba(122, 60, 216, 0.4); transition: all 0.15s; }
 .ref-action-btn:active { transform: translateY(2px); }
 .ref-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
@@ -317,15 +317,24 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       <div class="ref-link-box glass">
         <div class="ref-link-display" id="refLink">https://t.me/BotName?start=ref_0</div>
         <div class="ref-actions">
-          <button class="ref-action-btn" onclick="shareRefLink()">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-            </svg>
-            Share Invite Link
-          </button>
-        </div>
+  <button class="ref-action-btn" onclick="shareRefLink()">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/>
+      <circle cx="6" cy="12" r="3"/>
+      <circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+    Share
+  </button>
+  <button class="ref-action-btn" onclick="copyRefLink()" style="background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border-color: rgba(74, 222, 128, 0.5);">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2"/>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+    </svg>
+    Copy Link
+  </button>
+</div>
       </div>
 
       <div class="ref-benefits">
@@ -645,7 +654,7 @@ function updateUI() {
   el.monthValue.textContent = fmt(totalDaily * 30, 0);
 
   el.collectBtn.disabled = state.accrued <= 0;
-  el.refLink.textContent = `https://t.me/${CONFIG.BOT_USERNAME}?start=ref_${state.user.id}`;
+el.refLink.textContent = `https://t.me/${CONFIG.BOT_USERNAME}/awv?startapp=ref_${state.user.id}`;
 
   renderVehicles();
   renderReferralUI();
@@ -762,20 +771,38 @@ function startMining() {
 }
 
 // ============ SHARE ============
+function getReferralLink() {
+  return `https://t.me/${CONFIG.BOT_USERNAME}/awv?startapp=ref_${state.user.id}`;
+}
+
 function shareRefLink() {
-  // استخدم startapp لضمان وصول المعامل
-  const link = `https://t.me/${CONFIG.BOT_USERNAME}/awv?startapp=ref_${state.user.id}`;
+  const link = getReferralLink();
 
   try {
     if (window.Telegram?.WebApp?.openTelegramLink) {
       const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join AWV and earn crypto!')}`;
       window.Telegram.WebApp.openTelegramLink(shareUrl);
-      showToast('Share via Telegram');
       return;
     }
   } catch (e) {}
 
   navigator.clipboard.writeText(link).then(() => showToast('Link copied!'));
+}
+
+function copyRefLink() {
+  const link = getReferralLink();
+  navigator.clipboard.writeText(link).then(() => {
+    showToast('Link copied!');
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = link;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Link copied!');
+  });
 }
 
 // ============ WITHDRAW ============
