@@ -63,8 +63,8 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .balance-right { font-size: 12px; color: var(--text-3); font-weight: 700; text-align: right; line-height: 1.3; }
 .balance-right strong { color: var(--purple-light); font-weight: 800; }
 
-.main-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
-.main-tab { padding: 12px 4px; font-family: var(--sans); font-size: 12px; font-weight: 800; color: var(--text-2); cursor: pointer; text-align: center; letter-spacing: 0.5px; background: linear-gradient(135deg, rgba(20, 15, 40, 0.7) 0%, rgba(10, 8, 25, 0.85) 100%); border: 1px solid rgba(120, 100, 200, 0.12); border-radius: 10px; transition: all 0.2s; }
+.main-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 12px; }
+.main-tab { padding: 11px 4px; font-family: var(--sans); font-size: 11.5px; font-weight: 800; color: var(--text-2); cursor: pointer; text-align: center; letter-spacing: 0.5px; background: linear-gradient(135deg, rgba(20, 15, 40, 0.7) 0%, rgba(10, 8, 25, 0.85) 100%); border: 1px solid rgba(120, 100, 200, 0.12); border-radius: 10px; transition: all 0.2s; }
 .main-tab:active { transform: scale(0.96); }
 .main-tab.active { background: var(--grad-purple); border-color: rgba(200, 170, 255, 0.5); color: #fff; box-shadow: 0 6px 20px rgba(122, 60, 216, 0.5); transform: translateY(-1px); }
 
@@ -86,7 +86,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .collect-btn:active { transform: translateY(2px) scale(0.99); }
 .collect-btn:disabled { background: rgba(40, 30, 70, 0.6); color: var(--text-3); cursor: not-allowed; box-shadow: none; }
 
-  /* ===== AD BANNER ===== */
+/* ===== AD BANNER ===== */
 .ad-banner {
   position: relative;
   width: 100%;
@@ -96,28 +96,14 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   margin-bottom: 12px;
   background: linear-gradient(135deg, rgba(20, 15, 40, 0.8) 0%, rgba(8, 5, 20, 0.9) 100%);
   border: 1px solid rgba(120, 100, 200, 0.2);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 6px 18px rgba(0, 0, 0, 0.5);
-  animation: fadeUp 0.5s;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 6px 18px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  display: block;
+  transition: transform 0.2s;
 }
+.ad-banner-clickable:active { transform: scale(0.98); }
 
-.ad-banner::before {
-  content: 'AD';
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  font-family: var(--sans);
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  padding: 3px 7px;
-  border-radius: 4px;
-  z-index: 5;
-  backdrop-filter: blur(4px);
-}
+.ad-banner-169 { aspect-ratio: 16 / 9; }
 
 .ad-img {
   position: absolute;
@@ -130,10 +116,66 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   z-index: 1;
 }
 
-.ad-img.active {
-  opacity: 1;
-  z-index: 2;
+.ad-img.active { opacity: 1; z-index: 2; }
+
+/* START NOW button */
+.ad-start-btn {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 9px 22px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #fff;
+  background: linear-gradient(135deg, #9c5cff 0%, #4a7dff 100%);
+  border: 1px solid rgba(200, 170, 255, 0.6);
+  border-radius: 20px;
+  z-index: 4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  animation: glowPulse 2s ease-in-out infinite;
+  pointer-events: none;
+  white-space: nowrap;
 }
+
+@keyframes glowPulse {
+  0%, 100% { 
+    box-shadow: 
+      0 4px 15px rgba(122, 60, 216, 0.6),
+      0 0 20px rgba(156, 92, 255, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  50% { 
+    box-shadow: 
+      0 4px 20px rgba(122, 60, 216, 0.9),
+      0 0 30px rgba(156, 92, 255, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* ===== TASKS ===== */
+.tasks-hero { padding: 22px 18px; margin-bottom: 14px; text-align: center; }
+.tasks-icon {
+  width: 68px; height: 68px; margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(156, 92, 255, 0.2), transparent 70%);
+  border: 1.5px solid rgba(156, 92, 255, 0.4);
+}
+.tasks-title { font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 6px; letter-spacing: 1px; }
+.tasks-sub { font-size: 12.5px; color: var(--text-2); font-weight: 700; margin-bottom: 20px; line-height: 1.5; }
+.tasks-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 600;
+}
+.tasks-empty svg { opacity: 0.4; margin-bottom: 10px; }
+
+/* ===== VEHICLES ===== */
 .vehicles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 20px; }
 .v-card { background: linear-gradient(135deg, rgba(20, 15, 40, 0.8) 0%, rgba(8, 5, 20, 0.9) 100%); border: 1px solid rgba(120, 100, 200, 0.18); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 9px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 6px 18px rgba(0, 0, 0, 0.5); transition: transform 0.25s, border-color 0.25s; position: relative; overflow: hidden; }
 .v-card:hover { border-color: rgba(200, 170, 255, 0.4); transform: translateY(-3px); }
@@ -150,6 +192,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .v-buy:disabled { background: rgba(40, 30, 70, 0.6); color: var(--text-3); cursor: not-allowed; }
 .v-owned { padding: 11px; font-size: 12px; font-weight: 900; color: #fff; letter-spacing: 1.5px; text-align: center; background: linear-gradient(135deg, rgba(74, 222, 128, 0.4) 0%, rgba(34, 197, 94, 0.5) 100%); border: 1px solid rgba(74, 222, 128, 0.5); border-radius: 10px; }
 
+/* ===== WITHDRAW ===== */
 .withdraw-hero { padding: 22px 18px; margin-bottom: 14px; text-align: center; background: linear-gradient(135deg, rgba(20, 40, 30, 0.6) 0%, rgba(8, 20, 15, 0.85) 100%); border-color: rgba(74, 222, 128, 0.3); }
 .withdraw-icon { width: 68px; height: 68px; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: radial-gradient(circle, rgba(74, 222, 128, 0.2), transparent 70%); border: 1.5px solid rgba(74, 222, 128, 0.4); }
 .withdraw-title { font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 6px; letter-spacing: 1px; }
@@ -163,6 +206,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .withdraw-info-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-2); font-weight: 600; }
 .withdraw-info-row svg { color: var(--green); flex-shrink: 0; }
 
+/* ===== REFERRALS ===== */
 .ref-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
 .ref-stat-box { padding: 14px; }
 .ref-stat-lbl { font-size: 10.5px; color: var(--text-3); font-weight: 800; letter-spacing: 1.2px; margin-bottom: 6px; }
@@ -183,6 +227,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .ref-history-row:last-child { border-bottom: none; }
 .ref-history-row .num { font-family: var(--mono); color: var(--purple-light); font-weight: 800; }
 
+/* ===== MODALS ===== */
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(12px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.show { display: flex; }
 .modal { background: linear-gradient(135deg, rgba(25, 15, 50, 0.98) 0%, rgba(8, 5, 20, 0.98) 100%); border: 1.5px solid rgba(120, 100, 200, 0.4); border-radius: 20px; padding: 26px 22px; width: 100%; max-width: 350px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8); animation: modalIn 0.3s; position: relative; }
@@ -280,14 +325,15 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       <button class="main-tab active" onclick="switchTab(event, 'game')">Game</button>
       <button class="main-tab" onclick="switchTab(event, 'withdraw')">Withdraw</button>
       <button class="main-tab" onclick="switchTab(event, 'referrals')">Referrals</button>
+      <button class="main-tab" onclick="switchTab(event, 'tasks')">Tasks</button>
     </div>
 
+    <!-- GAME SCREEN -->
     <section id="gameScreen" class="screen active">
-      <!-- ===== AD BANNER ===== -->
-<div class="ad-banner">
-  <img id="adBannerImg" src="AW1.png" alt="Advertisement" class="ad-img active">
-  <img id="adBannerImg2" src="AW2.png" alt="Advertisement" class="ad-img">
-</div>
+      <div class="ad-banner">
+        <img id="adGame1" src="AW1.png" alt="" class="ad-img active">
+        <img id="adGame2" src="AW2.png" alt="" class="ad-img">
+      </div>
       <div class="game-card glass">
         <div class="accrued-label">Accrued</div>
         <div class="accrued-value">
@@ -312,50 +358,60 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       <div class="vehicles-grid" id="vehiclesGrid"></div>
     </section>
 
+    <!-- WITHDRAW SCREEN -->
     <section id="withdrawScreen" class="screen">
-  <div class="withdraw-hero glass">
-    <div class="withdraw-icon">
-      <img src="gram.png" alt="GRAM" style="width: 48px; height: 48px; object-fit: contain;">
-    </div>
-    <div class="withdraw-title">Withdraw GRAM</div>
-    <div class="withdraw-sub">Convert your AWV balance to GRAM</div>
-    <div class="withdraw-balance-box">
-      <div class="withdraw-balance-lbl">AVAILABLE BALANCE</div>
-      <div class="withdraw-balance-val">
-        <svg class="future-coin small" viewBox="0 0 60 60">
-          <circle cx="30" cy="30" r="26" fill="url(#fcRim)"/>
-          <circle cx="30" cy="30" r="22" fill="url(#fcFace)"/>
-          <polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/>
-          <circle cx="30" cy="30" r="2" fill="#ffffff" opacity="0.9"/>
-        </svg>
-        <span id="withdrawBalance">1.00000</span>
+      <div class="withdraw-hero glass">
+        <div class="withdraw-icon">
+          <img src="gram.png" alt="GRAM" style="width: 48px; height: 48px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<svg viewBox=\'0 0 32 32\' width=\'32\' height=\'32\'><path d=\'M16 2L4 9v14l12 7 12-7V9L16 2z\' fill=\'none\' stroke=\'#4ade80\' stroke-width=\'2\' stroke-linejoin=\'round\'/><path d=\'M11 16l5-3 5 3-5 3-5-3z\' fill=\'#4ade80\'/></svg>'">
+        </div>
+        <div class="withdraw-title">Withdraw GRAM</div>
+        <div class="withdraw-sub">Convert your AWV balance to GRAM</div>
+        <div class="withdraw-balance-box">
+          <div class="withdraw-balance-lbl">AVAILABLE BALANCE</div>
+          <div class="withdraw-balance-val">
+            <svg class="future-coin small" viewBox="0 0 60 60">
+              <circle cx="30" cy="30" r="26" fill="url(#fcRim)"/>
+              <circle cx="30" cy="30" r="22" fill="url(#fcFace)"/>
+              <polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/>
+              <circle cx="30" cy="30" r="2" fill="#ffffff" opacity="0.9"/>
+            </svg>
+            <span id="withdrawBalance">1.00000</span>
+          </div>
+        </div>
+        <button class="withdraw-btn-full" onclick="openWithdraw()">WITHDRAW NOW</button>
       </div>
-    </div>
-    <button class="withdraw-btn-full" onclick="openWithdraw()">WITHDRAW NOW</button>
-  </div>
-  <div class="withdraw-info glass">
-    <div class="withdraw-info-row">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-      </svg>
-      <span>Processing within 24 hours</span>
-    </div>
-    <div class="withdraw-info-row">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6"/>
-      </svg>
-      <span>No minimum</span>
-    </div>
-    <div class="withdraw-info-row">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-      <span>Secure TON network transfer</span>
-    </div>
-  </div>
-</section>
 
+      <!-- AD BANNER Withdraw -->
+      <a class="ad-banner ad-banner-clickable" href="https://t.me/flymage_bot?startapp=295200" target="_blank">
+        <img id="adWithdraw1" src="PP1.png" alt="" class="ad-img active">
+        <img id="adWithdraw2" src="PP2.png" alt="" class="ad-img">
+        <div class="ad-start-btn">START NOW</div>
+      </a>
+
+      <div class="withdraw-info glass">
+        <div class="withdraw-info-row">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          <span>Processing within 24 hours</span>
+        </div>
+        <div class="withdraw-info-row">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6"/>
+          </svg>
+          <span>No minimum</span>
+        </div>
+        <div class="withdraw-info-row">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Secure TON network transfer</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERRALS SCREEN -->
     <section id="referralsScreen" class="screen">
       <div class="ref-stats-row">
         <div class="ref-stat-box glass">
@@ -374,25 +430,31 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       <div class="ref-link-box glass">
         <div class="ref-link-display" id="refLink">https://t.me/BotName?start=ref_0</div>
         <div class="ref-actions">
-  <button class="ref-action-btn" onclick="shareRefLink()">
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="18" cy="5" r="3"/>
-      <circle cx="6" cy="12" r="3"/>
-      <circle cx="18" cy="19" r="3"/>
-      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-    </svg>
-    Share
-  </button>
-  <button class="ref-action-btn" onclick="copyRefLink()" style="background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border-color: rgba(74, 222, 128, 0.5);">
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="9" y="9" width="13" height="13" rx="2"/>
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-    </svg>
-    Copy Link
-  </button>
-</div>
+          <button class="ref-action-btn" onclick="shareRefLink()">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"/>
+              <circle cx="6" cy="12" r="3"/>
+              <circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+            Share
+          </button>
+          <button class="ref-action-btn" onclick="copyRefLink()" style="background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border-color: rgba(74, 222, 128, 0.5);">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Copy Link
+          </button>
+        </div>
       </div>
+
+      <!-- AD BANNER Referrals (16:9) -->
+      <a class="ad-banner ad-banner-169 ad-banner-clickable" href="https://t.me/cryptson2_bot?startapp=97249" target="_blank">
+        <img id="adRef1" src="PP3.png" alt="" class="ad-img active">
+        <img id="adRef2" src="PP4.png" alt="" class="ad-img">
+      </a>
 
       <div class="ref-benefits">
         <div class="ref-benefit glass">
@@ -417,9 +479,35 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       </div>
     </section>
 
+    <!-- TASKS SCREEN -->
+    <section id="tasksScreen" class="screen">
+      <div class="tasks-hero glass">
+        <div class="tasks-icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#c99aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <div class="tasks-title">Tasks</div>
+        <div class="tasks-sub">Complete tasks and earn bonus AWV</div>
+      </div>
+
+      <div class="glass" style="padding: 20px;">
+        <div class="tasks-empty">
+          <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M3 9h18M9 21V9"/>
+          </svg>
+          <div>No tasks available yet</div>
+          <div style="margin-top: 8px; font-size: 11px; color: #6a5f8a;">Coming soon...</div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </main>
 
+<!-- WITHDRAW MODAL -->
 <div class="modal-overlay" id="withdrawModal">
   <div class="modal">
     <h3 class="modal-title">Withdraw GRAM</h3>
@@ -446,6 +534,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   </div>
 </div>
 
+<!-- SUCCESS MODAL -->
 <div class="modal-overlay" id="successModal">
   <div class="modal">
     <div style="text-align:center;margin-bottom:12px">
@@ -461,6 +550,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   </div>
 </div>
 
+<!-- ERROR MODAL -->
 <div class="modal-overlay" id="errorModal">
   <div class="modal">
     <div style="text-align:center;margin-bottom:12px">
@@ -545,10 +635,8 @@ try {
       state.user.id = u.id;
       state.user.name = (u.first_name || '') + (u.last_name ? ' ' + u.last_name : '');
     }
-    // التقاط start_param من تيليجرام
     if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
       TG_START_PARAM = tg.initDataUnsafe.start_param;
-      console.log('📥 start_param from Telegram:', TG_START_PARAM);
     }
   }
 } catch (e) { console.warn('Telegram:', e); }
@@ -558,14 +646,13 @@ let supabaseClient = null;
 try {
   if (window.supabase && CONFIG.SUPABASE_URL && CONFIG.SUPABASE_KEY) {
     supabaseClient = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
-    console.log('✅ Supabase ready');
   }
-} catch (e) { console.warn('Supabase init error:', e); }
+} catch (e) { console.warn('Supabase error:', e); }
 
 // ============ STORAGE ============
 function saveState() {
   try {
-    localStorage.setItem('awv_v11', JSON.stringify({
+    localStorage.setItem('awv_v12', JSON.stringify({
       balance: state.balance, earned: state.earned, accrued: state.accrued,
       ownedVehicles: state.ownedVehicles, lastUpdate: state.lastUpdate
     }));
@@ -574,11 +661,11 @@ function saveState() {
 
 function loadState() {
   try {
-    const d = localStorage.getItem('awv_v11');
+    const d = localStorage.getItem('awv_v12');
     if (d) {
       const parsed = JSON.parse(d);
       Object.assign(state, parsed);
-      if (state.ownedVehicles.length > 0) {
+      if (state.ownedVehicles && state.ownedVehicles.length > 0) {
         const elapsed = (Date.now() - state.lastUpdate) / 1000;
         const totalDaily = getTotalDailyRate();
         const perSec = totalDaily / 86400;
@@ -602,22 +689,16 @@ function getTotalDailyRate() {
 
 // ============ REFERRAL SYSTEM ============
 async function registerReferral() {
-  if (!supabaseClient) { console.warn('Supabase not available'); return; }
-
+  if (!supabaseClient) return;
   try {
     const tgId = state.user.id;
     const firstName = state.user.name;
 
-    // استخراج referrer من 3 مصادر (بأي واحد متاح)
     let startParam = TG_START_PARAM;
-
-    // 1) من رابط الموقع
     if (!startParam) {
       const params = new URLSearchParams(window.location.search);
       startParam = params.get('start') || params.get('startapp');
     }
-
-    // 2) من initData
     if (!startParam && window.Telegram?.WebApp?.initData) {
       try {
         const initParams = new URLSearchParams(window.Telegram.WebApp.initData);
@@ -625,38 +706,24 @@ async function registerReferral() {
       } catch (e) {}
     }
 
-    console.log('🔍 Referral check - startParam:', startParam);
-
     let referrerId = null;
     if (startParam) {
-      // إزالة ref_ إن وجدت
       let cleaned = startParam.replace('ref_', '').trim();
       if (cleaned && /^\d+$/.test(cleaned) && cleaned !== String(tgId)) {
         referrerId = cleaned;
       }
     }
 
-    console.log('🔍 referrerId:', referrerId);
-
-    // تحقق إذا المستخدم موجود
-    const { data: existing, error: checkError } = await supabaseClient
+    const { data: existing } = await supabaseClient
       .from('users').select('*').eq('telegram_id', tgId).maybeSingle();
 
-    if (checkError) { console.error('Check error:', checkError); return; }
-
     if (existing) {
-      // المستخدم موجود - حدّث referred_by إذا كان فارغاً وهناك referrer
       if (!existing.referred_by && referrerId) {
         await supabaseClient.from('users')
-          .update({ referred_by: referrerId })
-          .eq('telegram_id', tgId);
-
-        // امنح المرجع المكافأة
+          .update({ referred_by: referrerId }).eq('telegram_id', tgId);
         await rewardReferrer(referrerId);
-        console.log('✅ Referral attached to existing user');
       }
 
-      // حمّل إحصائيات الإحالة
       const { data: refs } = await supabaseClient
         .from('users').select('first_name, created_at')
         .eq('referred_by', tgId).order('created_at', { ascending: false });
@@ -674,21 +741,13 @@ async function registerReferral() {
       return;
     }
 
-    // مستخدم جديد - سجّله
     await supabaseClient.from('users').insert({
       telegram_id: tgId, first_name: firstName,
       referred_by: referrerId, balance: state.balance
     });
 
-    // امنح المرجع المكافأة
-    if (referrerId) {
-      await rewardReferrer(referrerId);
-    }
-
-    console.log('✅ New user registered. Referrer:', referrerId);
-  } catch (e) {
-    console.error('Referral error:', e);
-  }
+    if (referrerId) await rewardReferrer(referrerId);
+  } catch (e) { console.error('Referral error:', e); }
 }
 
 async function rewardReferrer(referrerId) {
@@ -696,15 +755,13 @@ async function rewardReferrer(referrerId) {
     const { data: ref } = await supabaseClient
       .from('users').select('balance, referral_earnings')
       .eq('telegram_id', referrerId).maybeSingle();
-
     if (ref) {
       await supabaseClient.from('users').update({
         balance: (ref.balance || 0) + CONFIG.REFERRAL_REWARD,
         referral_earnings: (ref.referral_earnings || 0) + CONFIG.REFERRAL_REWARD
       }).eq('telegram_id', referrerId);
-      console.log('💰 Rewarded referrer:', referrerId, '+', CONFIG.REFERRAL_REWARD);
     }
-  } catch (e) { console.error('Reward error:', e); }
+  } catch (e) {}
 }
 
 // ============ UI UPDATE ============
@@ -720,7 +777,7 @@ function updateUI() {
   el.monthValue.textContent = fmt(totalDaily * 30, 0);
 
   el.collectBtn.disabled = state.accrued <= 0;
-el.refLink.textContent = `https://t.me/${CONFIG.BOT_USERNAME}/awv?startapp=ref_${state.user.id}`;
+  el.refLink.textContent = `https://t.me/${CONFIG.BOT_USERNAME}/awv?startapp=ref_${state.user.id}`;
 
   renderVehicles();
   renderReferralUI();
@@ -774,7 +831,7 @@ function switchTab(e, tab) {
   document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
   if (e && e.currentTarget) e.currentTarget.classList.add('active');
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const map = { game: 'gameScreen', withdraw: 'withdrawScreen', referrals: 'referralsScreen' };
+  const map = { game: 'gameScreen', withdraw: 'withdrawScreen', referrals: 'referralsScreen', tasks: 'tasksScreen' };
   if (map[tab]) document.getElementById(map[tab]).classList.add('active');
   updateUI();
 }
@@ -843,7 +900,6 @@ function getReferralLink() {
 
 function shareRefLink() {
   const link = getReferralLink();
-
   try {
     if (window.Telegram?.WebApp?.openTelegramLink) {
       const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Join AWV and earn crypto!')}`;
@@ -851,7 +907,6 @@ function shareRefLink() {
       return;
     }
   } catch (e) {}
-
   navigator.clipboard.writeText(link).then(() => showToast('Link copied!'));
 }
 
@@ -860,7 +915,6 @@ function copyRefLink() {
   navigator.clipboard.writeText(link).then(() => {
     showToast('Link copied!');
   }).catch(() => {
-    // Fallback for older browsers
     const ta = document.createElement('textarea');
     ta.value = link;
     document.body.appendChild(ta);
@@ -873,7 +927,6 @@ function copyRefLink() {
 
 // ============ WITHDRAW ============
 function openWithdraw() {
-  // لا يوجد حد أدنى — يفتح النموذج دائماً
   document.getElementById('userName').value = state.user.name || '';
   document.getElementById('walletAddress').value = '';
   document.getElementById('withdrawAmount').value = '';
@@ -915,12 +968,8 @@ async function submitWithdraw(e) {
   );
 
   try {
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      body: formData
-    });
+    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
     const data = await res.json();
-
     if (data.success) {
       state.balance -= amount;
       saveState();
@@ -974,44 +1023,42 @@ function createParticles() {
     el.bgParticles.appendChild(p);
   }
 }
-// ===== AD BANNER ROTATION =====
-let adInterval = null;
-let currentAd = 0;
 
-function startAdRotation() {
-  const ad1 = document.getElementById('adBannerImg');
-  const ad2 = document.getElementById('adBannerImg2');
-  
-  if (!ad1 || !ad2) return;
-  
-  // إيقاف أي interval سابق
-  if (adInterval) clearInterval(adInterval);
-  
-  adInterval = setInterval(() => {
-    currentAd = (currentAd + 1) % 2;
-    
-    if (currentAd === 0) {
-      ad1.classList.add('active');
-      ad2.classList.remove('active');
-    } else {
-      ad1.classList.remove('active');
-      ad2.classList.add('active');
-    }
-  }, 3000); // كل 3 ثواني
+// ============ AD ROTATIONS ============
+function setupAdRotation(ids, interval = 3000) {
+  const imgs = ids.map(id => document.getElementById(id)).filter(Boolean);
+  if (imgs.length < 2) return;
+  let idx = 0;
+  setInterval(() => {
+    idx = (idx + 1) % imgs.length;
+    imgs.forEach((img, i) => img.classList.toggle('active', i === idx));
+  }, interval);
 }
+
 // ============ INIT ============
 function init() {
   loadState();
-  if (!localStorage.getItem('awv_v11')) {
+  if (!localStorage.getItem('awv_v12')) {
     state.balance = CONFIG.STARTING_BALANCE;
     saveState();
   }
   createParticles();
   updateUI();
   if (state.ownedVehicles.length > 0) startMining();
-  startAdRotation();  // ← أضف هذا السطر
+
+  // تفعيل تبديل الإعلانات
+  setupAdRotation(['adGame1', 'adGame2']);
+  setupAdRotation(['adWithdraw1', 'adWithdraw2']);
+  setupAdRotation(['adRef1', 'adRef2']);
 
   setTimeout(() => { registerReferral(); }, 1000);
+}
+
+// تشغيل التطبيق
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
 }
 </script>
 </body>
