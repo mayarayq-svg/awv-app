@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>AWV</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
@@ -714,6 +714,7 @@ body {
 </div>
 
 <script>
+// ============ CONFIG ============
 const CONFIG = {
   WEB3FORMS_KEY: '2fa732dc-e4c7-4107-a4c9-905929f52284',
   BOT_USERNAME: 'AWVEARNBot',
@@ -725,6 +726,7 @@ const CONFIG = {
   SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZXBtaWFuZXdtamt0dGJucWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NjU1ODIsImV4cCI6MjEwNjU0MTU4Mn0.Fv5DtKqIcNDyK1ifzZ-f_35-zjqOa8Wlq4IT7PXP5QM'
 };
 
+// ============ VEHICLES ============
 const VEHICLES = [
   { id: 'F1', name: 'AWV-1', price: 1,   dailyRate: 0.10,  img: 'F1.png' },
   { id: 'F2', name: 'AWV-2', price: 3,   dailyRate: 0.36,  img: 'F2.png' },
@@ -734,6 +736,7 @@ const VEHICLES = [
   { id: 'F6', name: 'AWV-6', price: 50,  dailyRate: 10.00, img: 'F6.png' }
 ];
 
+// ============ STATE ============
 const state = {
   balance: CONFIG.STARTING_BALANCE,
   earned: 0,
@@ -744,6 +747,7 @@ const state = {
   referral: { totalIncome: 0, count: 0, history: [] }
 };
 
+// ============ DOM ============
 const el = {
   balanceValue: document.getElementById('balanceValue'),
   userGreeting: document.getElementById('userGreeting'),
@@ -763,6 +767,7 @@ const el = {
   bgParticles: document.getElementById('bgParticles')
 };
 
+// ============ TELEGRAM INIT ============
 try {
   if (window.Telegram && window.Telegram.WebApp) {
     const tg = window.Telegram.WebApp;
@@ -776,21 +781,21 @@ try {
       state.user.name = (u.first_name || '') + (u.last_name ? ' ' + u.last_name : '');
     }
   }
-} catch (e) {}
+} catch (e) { console.warn('Telegram:', e); }
 
-let supabase = null;
+// ============ SUPABASE INIT ============
+let supabaseClient = null;
 try {
-  if (CONFIG.SUPABASE_URL && CONFIG.SUPABASE_URL.startsWith('https')) {
-    supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
-    console.log('✅ Supabase connected');
+  if (window.supabase && CONFIG.SUPABASE_URL && CONFIG.SUPABASE_KEY) {
+    supabaseClient = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
+    console.log('✅ Supabase ready');
   }
-} catch (e) {
-  console.warn('Supabase error:', e);
-}
+} catch (e) { console.warn('Supabase init error:', e); }
 
+// ============ STORAGE ============
 function saveState() {
   try {
-    localStorage.setItem('awv_v9', JSON.stringify({
+    localStorage.setItem('awv_v10', JSON.stringify({
       balance: state.balance,
       earned: state.earned,
       accrued: state.accrued,
@@ -802,7 +807,7 @@ function saveState() {
 
 function loadState() {
   try {
-    const d = localStorage.getItem('awv_v9');
+    const d = localStorage.getItem('awv_v10');
     if (d) {
       const parsed = JSON.parse(d);
       Object.assign(state, parsed);
@@ -817,13 +822,9 @@ function loadState() {
   } catch (e) {}
 }
 
-function fmt(n, d = 5) {
-  return Number(n || 0).toFixed(d);
-}
-
-function getOwned(id) {
-  return state.ownedVehicles.find(o => o.id === id);
-}
+// ============ HELPERS ============
+function fmt(n, d = 5) { return Number(n || 0).toFixed(d); }
+function getOwned(id) { return state.ownedVehicles.find(o => o.id === id); }
 
 function getTotalDailyRate() {
   return state.ownedVehicles.reduce((sum, o) => {
@@ -832,9 +833,10 @@ function getTotalDailyRate() {
   }, 0);
 }
 
+// ============ REFERRAL SYSTEM ============
 async function registerReferral() {
-  if (!supabase) {
-    console.warn('Supabase not connected');
+  if (!supabaseClient) {
+    console.warn('Supabase not available');
     return;
   }
 
@@ -842,6 +844,7 @@ async function registerReferral() {
     const tgId = state.user.id;
     const firstName = state.user.name;
 
+    // Get referrer from URL
     const params = new URLSearchParams(window.location.search);
     let startParam = params.get('start');
     if (!startParam && window.Telegram?.WebApp?.initDataUnsafe?.start_param) {
@@ -854,14 +857,16 @@ async function registerReferral() {
       if (String(referrerId) === String(tgId)) referrerId = null;
     }
 
-    const { data: existing } = await supabase
+    // Check if user exists
+    const { data: existing } = await supabaseClient
       .from('users')
       .select('*')
       .eq('telegram_id', tgId)
       .maybeSingle();
 
     if (existing) {
-      const { data: refs } = await supabase
+      // Load referral stats
+      const { data: refs } = await supabaseClient
         .from('users')
         .select('first_name, created_at')
         .eq('referred_by', tgId)
@@ -880,22 +885,24 @@ async function registerReferral() {
       return;
     }
 
-    await supabase.from('users').insert({
+    // Register new user
+    await supabaseClient.from('users').insert({
       telegram_id: tgId,
       first_name: firstName,
       referred_by: referrerId,
       balance: state.balance
     });
 
+    // Reward referrer
     if (referrerId) {
-      const { data: referrer } = await supabase
+      const { data: referrer } = await supabaseClient
         .from('users')
         .select('balance, referral_earnings')
         .eq('telegram_id', referrerId)
         .maybeSingle();
 
       if (referrer) {
-        await supabase
+        await supabaseClient
           .from('users')
           .update({
             balance: (referrer.balance || 0) + CONFIG.REFERRAL_REWARD,
@@ -911,6 +918,7 @@ async function registerReferral() {
   }
 }
 
+// ============ UI UPDATE ============
 function updateUI() {
   el.balanceValue.textContent = fmt(state.balance, 5);
   el.userGreeting.innerHTML = 'Welcome<br><strong>' + (state.user.name || 'User') + '</strong>';
@@ -979,6 +987,7 @@ function renderVehicles() {
   }).join('');
 }
 
+// ============ TAB SWITCH ============
 function switchTab(e, tab) {
   document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
   if (e && e.currentTarget) e.currentTarget.classList.add('active');
@@ -989,6 +998,7 @@ function switchTab(e, tab) {
   updateUI();
 }
 
+// ============ BUY VEHICLE ============
 function buyVehicle(id) {
   const v = VEHICLES.find(x => x.id === id);
   if (!v) return;
@@ -1018,6 +1028,7 @@ function updateDailyStats() {
   el.monthValue.textContent = fmt(totalDaily * 30, 0);
 }
 
+// ============ COLLECT ============
 function collect() {
   if (state.accrued <= 0) { showToast('Nothing to collect'); return; }
   const amount = state.accrued;
@@ -1032,6 +1043,7 @@ function collect() {
   showToast(`Collected +${fmt(amount, 5)}`);
 }
 
+// ============ MINING ============
 let miningInterval = null;
 function startMining() {
   if (miningInterval) clearInterval(miningInterval);
@@ -1047,6 +1059,7 @@ function startMining() {
   }, 200);
 }
 
+// ============ SHARE ============
 function shareRefLink() {
   const link = `https://t.me/${CONFIG.BOT_USERNAME}?start=ref_${state.user.id}`;
 
@@ -1062,6 +1075,7 @@ function shareRefLink() {
   navigator.clipboard.writeText(link).then(() => showToast('Link copied!'));
 }
 
+// ============ WITHDRAW ============
 function openWithdraw() {
   if (state.balance < CONFIG.WITHDRAW_MIN) {
     showError(`Minimum withdraw: ${CONFIG.WITHDRAW_MIN} AWV`);
@@ -1132,9 +1146,8 @@ async function submitWithdraw(e) {
   }
 }
 
-function closeModal(id) {
-  document.getElementById(id).classList.remove('show');
-}
+// ============ MODALS ============
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
 function showSuccess(title, sub) {
   document.getElementById('successTitle').textContent = title;
@@ -1147,6 +1160,7 @@ function showError(msg) {
   document.getElementById('errorModal').classList.add('show');
 }
 
+// ============ TOAST ============
 let toastTimer;
 function showToast(msg) {
   clearTimeout(toastTimer);
@@ -1155,6 +1169,7 @@ function showToast(msg) {
   toastTimer = setTimeout(() => el.toast.classList.remove('show'), 2400);
 }
 
+// ============ PARTICLES ============
 function createParticles() {
   for (let i = 0; i < 20; i++) {
     const p = document.createElement('div');
@@ -1169,19 +1184,29 @@ function createParticles() {
   }
 }
 
+// ============ INIT ============
 function init() {
   loadState();
-  if (!localStorage.getItem('awv_v9')) {
+  if (!localStorage.getItem('awv_v10')) {
     state.balance = CONFIG.STARTING_BALANCE;
     saveState();
   }
   createParticles();
   updateUI();
   if (state.ownedVehicles.length > 0) startMining();
-  registerReferral();
+
+  // Referral registration (non-blocking)
+  setTimeout(() => {
+    registerReferral();
+  }, 500);
 }
 
-init();
+// Start the app
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
