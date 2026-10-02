@@ -260,44 +260,48 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
     </section>
 
     <section id="withdrawScreen" class="screen">
-      <div class="withdraw-hero glass">
-        <div class="withdraw-icon">
-          <svg viewBox="0 0 32 32" width="32" height="32">
-            <path d="M16 2L4 9v14l12 7 12-7V9L16 2z" fill="none" stroke="#4ade80" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M11 16l5-3 5 3-5 3-5-3z" fill="#4ade80"/>
-          </svg>
-        </div>
-        <div class="withdraw-title">Withdraw GRAM</div>
-        <div class="withdraw-sub">Convert your AWV balance to GRAM</div>
-        <div class="withdraw-balance-box">
-          <div class="withdraw-balance-lbl">AVAILABLE BALANCE</div>
-          <div class="withdraw-balance-val">
-            <svg class="future-coin small" viewBox="0 0 60 60">
-              <circle cx="30" cy="30" r="26" fill="url(#fcRim)"/>
-              <circle cx="30" cy="30" r="22" fill="url(#fcFace)"/>
-              <polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/>
-              <circle cx="30" cy="30" r="2" fill="#ffffff" opacity="0.9"/>
-            </svg>
-            <span id="withdrawBalance">1.00000</span>
-          </div>
-        </div>
-        <button class="withdraw-btn-full" onclick="openWithdraw()">WITHDRAW NOW</button>
+  <div class="withdraw-hero glass">
+    <div class="withdraw-icon">
+      <img src="gram.png" alt="GRAM" style="width: 48px; height: 48px; object-fit: contain;">
+    </div>
+    <div class="withdraw-title">Withdraw GRAM</div>
+    <div class="withdraw-sub">Convert your AWV balance to GRAM</div>
+    <div class="withdraw-balance-box">
+      <div class="withdraw-balance-lbl">AVAILABLE BALANCE</div>
+      <div class="withdraw-balance-val">
+        <svg class="future-coin small" viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="26" fill="url(#fcRim)"/>
+          <circle cx="30" cy="30" r="22" fill="url(#fcFace)"/>
+          <polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/>
+          <circle cx="30" cy="30" r="2" fill="#ffffff" opacity="0.9"/>
+        </svg>
+        <span id="withdrawBalance">1.00000</span>
       </div>
-      <div class="withdraw-info glass">
-        <div class="withdraw-info-row">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          <span>Processing within 24 hours</span>
-        </div>
-        <div class="withdraw-info-row">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6"/></svg>
-          <span>Minimum: 5 AWV = 1 GRAM</span>
-        </div>
-        <div class="withdraw-info-row">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>Secure GRAM network transfer</span>
-        </div>
-      </div>
-    </section>
+    </div>
+    <button class="withdraw-btn-full" onclick="openWithdraw()">WITHDRAW NOW</button>
+  </div>
+  <div class="withdraw-info glass">
+    <div class="withdraw-info-row">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+      <span>Processing within 24 hours</span>
+    </div>
+    <div class="withdraw-info-row">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6"/>
+      </svg>
+      <span>No minimum</span>
+    </div>
+    <div class="withdraw-info-row">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>Secure TON network transfer</span>
+    </div>
+  </div>
+</section>
 
     <section id="referralsScreen" class="screen">
       <div class="ref-stats-row">
@@ -368,10 +372,19 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
     <h3 class="modal-title">Withdraw GRAM</h3>
     <p class="modal-sub">Fill in your details</p>
     <form id="withdrawForm" onsubmit="submitWithdraw(event)">
-      <div class="form-group"><label class="form-label">YOUR NAME</label><input type="text" class="form-input" id="userName" placeholder="Enter your name" required></div>
-      <div class="form-group"><label class="form-label">GRAM WALLET ADDRESS</label><input type="text" class="form-input" id="walletAddress" placeholder="UQ... or EQ..." required></div>
-      <div class="form-group"><label class="form-label">AMOUNT (MIN 5 AWV)</label><input type="text" class="form-input" id="withdrawAmount" placeholder="0.00" required></div>
-      <div class="form-note">Minimum: 5.00 AWV = 1 GRAM</div>
+      <div class="form-group">
+        <label class="form-label">YOUR NAME</label>
+        <input type="text" class="form-input" id="userName" placeholder="Enter your name" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">TON WALLET ADDRESS</label>
+        <input type="text" class="form-input" id="walletAddress" placeholder="UQ... or EQ..." required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">AMOUNT (AWV)</label>
+        <input type="text" class="form-input" id="withdrawAmount" placeholder="0.00" required>
+      </div>
+      <div class="form-note">No minimum · 5 AWV = 1 GRAM</div>
       <div class="modal-actions">
         <button type="button" class="m-btn cancel" onclick="closeModal('withdrawModal')">CANCEL</button>
         <button type="submit" class="m-btn primary" id="withdrawSubmitBtn">WITHDRAW</button>
@@ -807,10 +820,7 @@ function copyRefLink() {
 
 // ============ WITHDRAW ============
 function openWithdraw() {
-  if (state.balance < CONFIG.WITHDRAW_MIN) {
-    showError(`Minimum withdraw: ${CONFIG.WITHDRAW_MIN} AWV`);
-    return;
-  }
+  // لا يوجد حد أدنى — يفتح النموذج دائماً
   document.getElementById('userName').value = state.user.name || '';
   document.getElementById('walletAddress').value = '';
   document.getElementById('withdrawAmount').value = '';
@@ -819,14 +829,15 @@ function openWithdraw() {
 
 async function submitWithdraw(e) {
   e.preventDefault();
+
   const userName = document.getElementById('userName').value.trim();
   const address = document.getElementById('walletAddress').value.trim();
   const amount = parseFloat(document.getElementById('withdrawAmount').value);
 
   if (!userName) { showError('Please enter your name'); return; }
-  if (!address || address.length < 20) { showError('Please enter a valid GRAM address'); return; }
-  if (!amount || amount < CONFIG.WITHDRAW_MIN) { showError(`Minimum: ${CONFIG.WITHDRAW_MIN} AWV`); return; }
-  if (amount > state.balance) { showError(`Insufficient balance`); return; }
+  if (!address || address.length < 20) { showError('Please enter a valid TON address'); return; }
+  if (!amount || amount <= 0) { showError('Please enter a valid amount'); return; }
+  if (amount > state.balance) { showError(`Insufficient balance. You have ${fmt(state.balance, 5)} AWV`); return; }
 
   const submitBtn = document.getElementById('withdrawSubmitBtn');
   submitBtn.disabled = true;
@@ -841,15 +852,22 @@ async function submitWithdraw(e) {
   formData.append('name', userName);
   formData.append('message',
     `=== WITHDRAW REQUEST ===\n\n` +
-    `User ID: ${state.user.id}\nName: ${userName}\n` +
-    `Amount (AWV): ${amount}\nAmount (GRAM): ${gramAmount}\n` +
-    `Wallet: ${address}\nBalance Before: ${fmt(state.balance, 5)} AWV\n` +
+    `User ID: ${state.user.id}\n` +
+    `Name: ${userName}\n` +
+    `Amount (AWV): ${amount}\n` +
+    `Amount (GRAM): ${gramAmount}\n` +
+    `TON Wallet: ${address}\n` +
+    `Balance Before: ${fmt(state.balance, 5)} AWV\n` +
     `Date: ${new Date().toLocaleString()}\n`
   );
 
   try {
-    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
     const data = await res.json();
+
     if (data.success) {
       state.balance -= amount;
       saveState();
@@ -858,10 +876,10 @@ async function submitWithdraw(e) {
       closeModal('withdrawModal');
       showSuccess('Request sent!', `Your ${gramAmount} GRAM withdrawal is processing`);
     } else {
-      showError('Failed to send request.');
+      showError('Failed to send request. Try again.');
     }
   } catch (err) {
-    showError('Network error.');
+    showError('Network error. Please try again.');
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = 'WITHDRAW';
