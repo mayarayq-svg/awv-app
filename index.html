@@ -86,6 +86,54 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .collect-btn:active { transform: translateY(2px) scale(0.99); }
 .collect-btn:disabled { background: rgba(40, 30, 70, 0.6); color: var(--text-3); cursor: not-allowed; box-shadow: none; }
 
+  /* ===== AD BANNER ===== */
+.ad-banner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2.35 / 1;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, rgba(20, 15, 40, 0.8) 0%, rgba(8, 5, 20, 0.9) 100%);
+  border: 1px solid rgba(120, 100, 200, 0.2);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 6px 18px rgba(0, 0, 0, 0.5);
+  animation: fadeUp 0.5s;
+}
+
+.ad-banner::before {
+  content: 'AD';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  padding: 3px 7px;
+  border-radius: 4px;
+  z-index: 5;
+  backdrop-filter: blur(4px);
+}
+
+.ad-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  z-index: 1;
+}
+
+.ad-img.active {
+  opacity: 1;
+  z-index: 2;
+}
 .vehicles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 20px; }
 .v-card { background: linear-gradient(135deg, rgba(20, 15, 40, 0.8) 0%, rgba(8, 5, 20, 0.9) 100%); border: 1px solid rgba(120, 100, 200, 0.18); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 9px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 6px 18px rgba(0, 0, 0, 0.5); transition: transform 0.25s, border-color 0.25s; position: relative; overflow: hidden; }
 .v-card:hover { border-color: rgba(200, 170, 255, 0.4); transform: translateY(-3px); }
@@ -235,6 +283,11 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
     </div>
 
     <section id="gameScreen" class="screen active">
+      <!-- ===== AD BANNER ===== -->
+<div class="ad-banner">
+  <img id="adBannerImg" src="AW1.png" alt="Advertisement" class="ad-img active">
+  <img id="adBannerImg2" src="AW2.png" alt="Advertisement" class="ad-img">
+</div>
       <div class="game-card glass">
         <div class="accrued-label">Accrued</div>
         <div class="accrued-value">
@@ -921,7 +974,31 @@ function createParticles() {
     el.bgParticles.appendChild(p);
   }
 }
+// ===== AD BANNER ROTATION =====
+let adInterval = null;
+let currentAd = 0;
 
+function startAdRotation() {
+  const ad1 = document.getElementById('adBannerImg');
+  const ad2 = document.getElementById('adBannerImg2');
+  
+  if (!ad1 || !ad2) return;
+  
+  // إيقاف أي interval سابق
+  if (adInterval) clearInterval(adInterval);
+  
+  adInterval = setInterval(() => {
+    currentAd = (currentAd + 1) % 2;
+    
+    if (currentAd === 0) {
+      ad1.classList.add('active');
+      ad2.classList.remove('active');
+    } else {
+      ad1.classList.remove('active');
+      ad2.classList.add('active');
+    }
+  }, 3000); // كل 3 ثواني
+}
 // ============ INIT ============
 function init() {
   loadState();
@@ -932,15 +1009,9 @@ function init() {
   createParticles();
   updateUI();
   if (state.ownedVehicles.length > 0) startMining();
+  startAdRotation();  // ← أضف هذا السطر
 
-  // تأخير بسيط لضمان تحميل initData
   setTimeout(() => { registerReferral(); }, 1000);
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
 }
 </script>
 </body>
