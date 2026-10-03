@@ -17,6 +17,7 @@
   --sans: 'Inter', -apple-system, sans-serif;
   --mono: 'JetBrains Mono', monospace;
   --grad-purple: linear-gradient(135deg, #9c5cff 0%, #4a7dff 100%);
+  --grad-green: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
 }
 html, body { height: 100%; overflow: hidden; background: #000; }
 body { font-family: var(--sans); color: var(--text-1); user-select: none; font-size: 14px; -webkit-font-smoothing: antialiased; }
@@ -86,24 +87,6 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .collect-btn:active { transform: translateY(2px) scale(0.99); }
 .collect-btn:disabled { background: rgba(40, 30, 70, 0.6); color: var(--text-3); cursor: not-allowed; box-shadow: none; }
 
-.ad-banner { position: relative; width: 100%; aspect-ratio: 2.35 / 1; border-radius: 16px; overflow: hidden; margin-bottom: 12px; background: linear-gradient(135deg, rgba(20, 15, 40, 0.8) 0%, rgba(8, 5, 20, 0.9) 100%); border: 1px solid rgba(120, 100, 200, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 6px 18px rgba(0, 0, 0, 0.5); text-decoration: none; display: block; transition: transform 0.2s; }
-.ad-banner-clickable:active { transform: scale(0.98); }
-.ad-banner-169 { aspect-ratio: 16 / 9; }
-.ad-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.8s ease-in-out; z-index: 1; }
-.ad-img.active { opacity: 1; z-index: 2; }
-.ad-start-btn { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); padding: 9px 22px; font-family: var(--sans); font-size: 12px; font-weight: 900; letter-spacing: 1.5px; color: #fff; background: linear-gradient(135deg, #9c5cff 0%, #4a7dff 100%); border: 1px solid rgba(200, 170, 255, 0.6); border-radius: 20px; z-index: 4; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); animation: glowPulse 2s ease-in-out infinite; pointer-events: none; white-space: nowrap; }
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 4px 15px rgba(122, 60, 216, 0.6), 0 0 20px rgba(156, 92, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
-  50% { box-shadow: 0 4px 20px rgba(122, 60, 216, 0.9), 0 0 30px rgba(156, 92, 255, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
-}
-
-.tasks-hero { padding: 22px 18px; margin-bottom: 14px; text-align: center; }
-.tasks-icon { width: 68px; height: 68px; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: radial-gradient(circle, rgba(156, 92, 255, 0.2), transparent 70%); border: 1.5px solid rgba(156, 92, 255, 0.4); }
-.tasks-title { font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 6px; letter-spacing: 1px; }
-.tasks-sub { font-size: 12.5px; color: var(--text-2); font-weight: 700; margin-bottom: 20px; line-height: 1.5; }
-.tasks-empty { padding: 40px 20px; text-align: center; color: var(--text-3); font-size: 13px; font-weight: 600; }
-.tasks-empty svg { opacity: 0.4; margin-bottom: 10px; }
-
 .vehicles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 20px; }
 .v-card { background: linear-gradient(135deg, rgba(20, 15, 40, 0.8) 0%, rgba(8, 5, 20, 0.9) 100%); border: 1px solid rgba(120, 100, 200, 0.18); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 9px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 6px 18px rgba(0, 0, 0, 0.5); transition: transform 0.25s, border-color 0.25s; position: relative; overflow: hidden; }
 .v-card:hover { border-color: rgba(200, 170, 255, 0.4); transform: translateY(-3px); }
@@ -127,7 +110,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .withdraw-balance-box { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: rgba(74, 222, 128, 0.06); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: 12px; margin-bottom: 18px; }
 .withdraw-balance-lbl { font-size: 10.5px; color: var(--text-3); font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
 .withdraw-balance-val { display: flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--mono); font-size: 22px; font-weight: 800; color: #fff; }
-.withdraw-btn-full { width: 100%; padding: 16px; font-family: var(--sans); font-size: 15px; font-weight: 900; letter-spacing: 1.5px; color: #fff; cursor: pointer; background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border: 1px solid rgba(74, 222, 128, 0.5); border-radius: 12px; box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4); transition: all 0.15s; }
+.withdraw-btn-full { width: 100%; padding: 16px; font-family: var(--sans); font-size: 15px; font-weight: 900; letter-spacing: 1.5px; color: #fff; cursor: pointer; background: var(--grad-green); border: 1px solid rgba(74, 222, 128, 0.5); border-radius: 12px; box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4); transition: all 0.15s; }
 .withdraw-btn-full:active { transform: translateY(2px); }
 .withdraw-info { padding: 14px 16px; margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
 .withdraw-info-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-2); font-weight: 600; }
@@ -153,14 +136,68 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 .ref-history-row:last-child { border-bottom: none; }
 .ref-history-row .num { font-family: var(--mono); color: var(--purple-light); font-weight: 800; }
 
-/* Collect Referrals Box */
 .collect-ref-box { margin-bottom: 12px; padding: 14px; }
 .collect-ref-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .collect-ref-pending-label { font-size: 10.5px; color: var(--text-3); font-weight: 800; letter-spacing: 1.2px; margin-bottom: 4px; }
 .collect-ref-pending-value { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 22px; font-weight: 800; color: #fff; }
-.collect-ref-btn { padding: 12px 20px; font-family: var(--sans); font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #fff; background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border: 1px solid rgba(74, 222, 128, 0.5); border-radius: 10px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); cursor: pointer; transition: all 0.15s; }
+.collect-ref-btn { padding: 12px 20px; font-family: var(--sans); font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #fff; background: var(--grad-green); border: 1px solid rgba(74, 222, 128, 0.5); border-radius: 10px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); cursor: pointer; transition: all 0.15s; }
 .collect-ref-btn:active { transform: scale(0.97); }
 .collect-ref-btn:disabled { background: rgba(40, 30, 70, 0.6); color: var(--text-3); cursor: not-allowed; box-shadow: none; border-color: rgba(120, 100, 200, 0.2); }
+
+/* ===== TASKS ===== */
+.tasks-hero { padding: 22px 18px; margin-bottom: 14px; text-align: center; }
+.tasks-icon { width: 68px; height: 68px; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: radial-gradient(circle, rgba(156, 92, 255, 0.2), transparent 70%); border: 1.5px solid rgba(156, 92, 255, 0.4); }
+.tasks-title { font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 6px; letter-spacing: 1px; }
+.tasks-sub { font-size: 12.5px; color: var(--text-2); font-weight: 700; margin-bottom: 20px; line-height: 1.5; }
+
+.task-list { display: flex; flex-direction: column; gap: 10px; padding-bottom: 20px; }
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(20, 15, 40, 0.8) 0%, rgba(8, 5, 20, 0.9) 100%);
+  border: 1px solid rgba(120, 100, 200, 0.18);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.task-item:active { transform: scale(0.98); border-color: rgba(200, 170, 255, 0.4); }
+.task-item.completed { background: linear-gradient(135deg, rgba(20, 45, 35, 0.7) 0%, rgba(8, 25, 18, 0.85) 100%); border-color: rgba(74, 222, 128, 0.35); cursor: default; }
+.task-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #229ED9, #0088cc);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(34, 158, 217, 0.4);
+}
+.task-icon svg { width: 26px; height: 26px; fill: #fff; }
+.task-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.task-name { font-size: 14px; font-weight: 900; color: #fff; letter-spacing: 0.5px; }
+.task-reward { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: var(--purple-light); font-family: var(--mono); }
+.task-reward svg { width: 14px; height: 14px; }
+.task-action {
+  padding: 9px 16px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #fff;
+  background: var(--grad-purple);
+  border: 1px solid rgba(200, 170, 255, 0.35);
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(122, 60, 216, 0.4);
+  flex-shrink: 0;
+}
+.task-item.completed .task-action {
+  background: rgba(74, 222, 128, 0.15);
+  border-color: rgba(74, 222, 128, 0.4);
+  color: #4ade80;
+  box-shadow: none;
+}
 
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(12px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.show { display: flex; }
@@ -262,11 +299,8 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       <button class="main-tab" onclick="switchTab(event, 'tasks')">Tasks</button>
     </div>
 
+    <!-- ========== GAME ========== -->
     <section id="gameScreen" class="screen active">
-      <div class="ad-banner">
-        <img id="adGame1" src="AW1.png" alt="" class="ad-img active">
-        <img id="adGame2" src="AW2.png" alt="" class="ad-img">
-      </div>
       <div class="game-card glass">
         <div class="accrued-label">Accrued</div>
         <div class="accrued-value">
@@ -291,6 +325,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       <div class="vehicles-grid" id="vehiclesGrid"></div>
     </section>
 
+    <!-- ========== WITHDRAW ========== -->
     <section id="withdrawScreen" class="screen">
       <div class="withdraw-hero glass">
         <div class="withdraw-icon">
@@ -312,34 +347,23 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
         </div>
         <button class="withdraw-btn-full" onclick="openWithdraw()">WITHDRAW NOW</button>
       </div>
-      <a class="ad-banner ad-banner-clickable" href="https://t.me/flymage_bot?startapp=295200" target="_blank">
-        <img id="adWithdraw1" src="PP1.png" alt="" class="ad-img active">
-        <img id="adWithdraw2" src="PP2.png" alt="" class="ad-img">
-        <div class="ad-start-btn">START NOW</div>
-      </a>
       <div class="withdraw-info glass">
         <div class="withdraw-info-row">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 6v6l4 2"/>
-          </svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           <span>Processing within 24 hours</span>
         </div>
         <div class="withdraw-info-row">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6"/>
-          </svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6"/></svg>
           <span>Minimum: 5 AWV = 1 GRAM</span>
         </div>
         <div class="withdraw-info-row">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <span>Secure TON network transfer</span>
         </div>
       </div>
     </section>
 
+    <!-- ========== REFERRALS ========== -->
     <section id="referralsScreen" class="screen">
       <div class="ref-stats-row">
         <div class="ref-stat-box glass">
@@ -355,7 +379,6 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
         </div>
       </div>
 
-      <!-- زر جمع الإحالات -->
       <div class="collect-ref-box glass">
         <div class="collect-ref-header">
           <div>
@@ -369,9 +392,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
               <span id="pendingRewards">0.00</span>
             </div>
           </div>
-          <button id="collectRefBtn" class="collect-ref-btn" onclick="collectReferralRewards()" disabled>
-            COLLECT
-          </button>
+          <button id="collectRefBtn" class="collect-ref-btn" onclick="collectReferralRewards()" disabled>COLLECT</button>
         </div>
       </div>
 
@@ -380,9 +401,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
         <div class="ref-actions">
           <button class="ref-action-btn" onclick="shareRefLink()">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="18" cy="5" r="3"/>
-              <circle cx="6" cy="12" r="3"/>
-              <circle cx="18" cy="19" r="3"/>
+              <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
               <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
               <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
             </svg>
@@ -397,11 +416,6 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
           </button>
         </div>
       </div>
-
-      <a class="ad-banner ad-banner-169 ad-banner-clickable" href="https://t.me/cryptson2_bot?startapp=97249" target="_blank">
-        <img id="adRef1" src="PP3.png" alt="" class="ad-img active">
-        <img id="adRef2" src="PP4.png" alt="" class="ad-img">
-      </a>
 
       <div class="ref-benefits">
         <div class="ref-benefit glass">
@@ -426,6 +440,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       </div>
     </section>
 
+    <!-- ========== TASKS ========== -->
     <section id="tasksScreen" class="screen">
       <div class="tasks-hero glass">
         <div class="tasks-icon">
@@ -435,18 +450,10 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
           </svg>
         </div>
         <div class="tasks-title">Tasks</div>
-        <div class="tasks-sub">Complete tasks and earn bonus AWV</div>
+        <div class="tasks-sub">Complete tasks and earn 0.01 AWV each</div>
       </div>
-      <div class="glass" style="padding: 20px;">
-        <div class="tasks-empty">
-          <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-            <path d="M3 9h18M9 21V9"/>
-          </svg>
-          <div>No tasks available yet</div>
-          <div style="margin-top: 8px; font-size: 11px; color: #6a5f8a;">Coming soon...</div>
-        </div>
-      </div>
+
+      <div class="task-list" id="taskList"></div>
     </section>
 
   </div>
@@ -525,6 +532,28 @@ const CONFIG = {
   SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZXBtaWFuZXdtamt0dGJucWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NjU1ODIsImV4cCI6MjEwNjU0MTU4Mn0.Fv5DtKqIcNDyK1ifzZ-f_35-zjqOa8Wlq4IT7PXP5QM'
 };
 
+// ============ TASKS CONFIG ============
+const TASKS = [
+  {
+    id: 'task_flymage',
+    name: 'FlyMage',
+    url: 'https://t.me/flymage_bot?startapp=295200',
+    reward: 0.01
+  },
+  {
+    id: 'task_cryptson',
+    name: 'CryptoSon',
+    url: 'https://t.me/cryptson2_bot?startapp=97249',
+    reward: 0.01
+  },
+  {
+    id: 'task_adtubes',
+    name: 'AdTubes',
+    url: 'https://t.me/AdTubesBot?startapp=ref_7931994096',
+    reward: 0.01
+  }
+];
+
 const VEHICLES = [
   { id: 'F1', name: 'AWV-1', price: 1,   dailyRate: 0.10,  img: 'F1.png' },
   { id: 'F2', name: 'AWV-2', price: 3,   dailyRate: 0.36,  img: 'F2.png' },
@@ -541,10 +570,10 @@ const state = {
   ownedVehicles: [],
   lastUpdate: Date.now(),
   user: { id: 'demo', name: 'User' },
-  referral: { totalIncome: 0, count: 0, history: [] }
+  referral: { totalIncome: 0, count: 0, history: [] },
+  completedTasks: []
 };
 
-// متغير عام لتتبع الإحالات المُجمَّعة
 let collectedReferrals = 0;
 
 const el = {
@@ -561,6 +590,7 @@ const el = {
   refCount: document.getElementById('refCount'),
   refLink: document.getElementById('refLink'),
   refHistoryList: document.getElementById('refHistoryList'),
+  taskList: document.getElementById('taskList'),
   toast: document.getElementById('toast'),
   toastMsg: document.getElementById('toastMsg'),
   bgParticles: document.getElementById('bgParticles')
@@ -597,16 +627,17 @@ try {
 // ============ STORAGE ============
 function saveState() {
   try {
-    localStorage.setItem('awv_v13', JSON.stringify({
+    localStorage.setItem('awv_v14', JSON.stringify({
       balance: state.balance, earned: state.earned, accrued: state.accrued,
-      ownedVehicles: state.ownedVehicles, lastUpdate: state.lastUpdate
+      ownedVehicles: state.ownedVehicles, lastUpdate: state.lastUpdate,
+      completedTasks: state.completedTasks
     }));
   } catch (e) {}
 }
 
 function loadState() {
   try {
-    const d = localStorage.getItem('awv_v13');
+    const d = localStorage.getItem('awv_v14');
     if (d) {
       const parsed = JSON.parse(d);
       Object.assign(state, parsed);
@@ -717,31 +748,22 @@ async function rewardReferrer(referrerId) {
 // ============ COLLECT REFERRAL REWARDS ============
 async function collectReferralRewards() {
   const pending = state.referral.totalIncome - collectedReferrals;
-  
-  if (pending <= 0) {
-    showToast('Nothing to collect');
-    return;
-  }
+  if (pending <= 0) { showToast('Nothing to collect'); return; }
 
   const btn = document.getElementById('collectRefBtn');
   btn.disabled = true;
   btn.textContent = 'COLLECTING...';
 
   try {
-    // أضف المبلغ للرصيد
     state.balance += pending;
     state.earned += pending;
     collectedReferrals = state.referral.totalIncome;
-
-    // احفظ
     saveState();
     localStorage.setItem('awv_collected_referrals', collectedReferrals.toString());
 
-    // حدّث UI
     el.balanceValue.textContent = fmt(state.balance, 5);
     el.withdrawBalance.textContent = fmt(state.balance, 5);
     renderReferralUI();
-
     showToast('Collected +' + fmt(pending, 2) + ' AWV');
   } catch (e) {
     console.error('Collect error:', e);
@@ -749,6 +771,84 @@ async function collectReferralRewards() {
   } finally {
     btn.textContent = 'COLLECT';
   }
+}
+
+// ============ TASKS ============
+function renderTasks() {
+  el.taskList.innerHTML = TASKS.map(task => {
+    const completed = state.completedTasks.includes(task.id);
+    return `
+      <div class="task-item ${completed ? 'completed' : ''}" onclick="handleTaskClick('${task.id}')">
+        <div class="task-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.108c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.966-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+          </svg>
+        </div>
+        <div class="task-info">
+          <div class="task-name">${task.name}</div>
+          <div class="task-reward">
+            <svg viewBox="0 0 60 60">
+              <circle cx="30" cy="30" r="26" fill="url(#fcRim)"/>
+              <circle cx="30" cy="30" r="22" fill="url(#fcFace)"/>
+              <polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/>
+            </svg>
+            +${task.reward.toFixed(2)} AWV
+          </div>
+        </div>
+        <div class="task-action">${completed ? '✓ DONE' : 'START'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function handleTaskClick(taskId) {
+  const task = TASKS.find(t => t.id === taskId);
+  if (!task) return;
+
+  // إذا كان مكتملاً
+  if (state.completedTasks.includes(taskId)) {
+    showToast('Task already completed');
+    return;
+  }
+
+  // افتح الرابط
+  try {
+    if (window.Telegram?.WebApp?.openTelegramLink) {
+      window.Telegram.WebApp.openTelegramLink(task.url);
+    } else {
+      window.open(task.url, '_blank');
+    }
+  } catch (e) {
+    window.open(task.url, '_blank');
+  }
+
+  // انتظر 3 ثوان (لمنح المستخدم وقتاً للنقر)
+  showToast('Opening ' + task.name + '...');
+
+  setTimeout(async () => {
+    // سجّل المهمة كمكتملة
+    state.completedTasks.push(taskId);
+    state.balance += task.reward;
+    state.earned += task.reward;
+    saveState();
+
+    // حدّث UI
+    el.balanceValue.textContent = fmt(state.balance, 5);
+    el.withdrawBalance.textContent = fmt(state.balance, 5);
+    renderTasks();
+
+    showToast('+' + task.reward.toFixed(2) + ' AWV earned!');
+
+    // سجّل في Supabase
+    try {
+      if (supabaseClient) {
+        await supabaseClient.from('user_tasks').insert({
+          telegram_id: state.user.id,
+          task_id: taskId
+        });
+      }
+    } catch (e) { console.error('Task log error:', e); }
+  }, 3000);
 }
 
 // ============ UI UPDATE ============
@@ -768,28 +868,20 @@ function updateUI() {
 
   renderVehicles();
   renderReferralUI();
+  renderTasks();
 }
 
 function renderReferralUI() {
   el.refTotalIncome.textContent = fmt(state.referral.totalIncome, 2);
   el.refCount.textContent = state.referral.count || 0;
 
-  // احسب المتبقي
   const pending = Math.max(0, state.referral.totalIncome - collectedReferrals);
   const pendingEl = document.getElementById('pendingRewards');
   const btn = document.getElementById('collectRefBtn');
   
   if (pendingEl) pendingEl.textContent = fmt(pending, 2);
-  
-  if (btn) {
-    if (pending > 0) {
-      btn.disabled = false;
-    } else {
-      btn.disabled = true;
-    }
-  }
+  if (btn) btn.disabled = pending <= 0;
 
-  // قائمة الأصدقاء
   if (!state.referral.history || state.referral.history.length === 0) {
     el.refHistoryList.innerHTML = `<div class="ref-history-row"><div>—</div><div>No referrals yet</div><div class="num">0.00</div></div>`;
     return;
@@ -865,7 +957,7 @@ function updateDailyStats() {
   el.monthValue.textContent = fmt(totalDaily * 30, 0);
 }
 
-// ============ COLLECT (Mining) ============
+// ============ COLLECT MINING ============
 function collect() {
   if (state.accrued <= 0) { showToast('Nothing to collect'); return; }
   const amount = state.accrued;
@@ -934,7 +1026,6 @@ function openWithdraw() {
     showError('Minimum withdrawal: 5 AWV = 1 GRAM\n\nYour balance: ' + fmt(state.balance, 5) + ' AWV');
     return;
   }
-
   document.getElementById('userName').value = state.user.name || '';
   document.getElementById('walletAddress').value = '';
   document.getElementById('withdrawAmount').value = CONFIG.WITHDRAW_MIN.toString();
@@ -950,10 +1041,7 @@ async function submitWithdraw(e) {
 
   if (!userName) { showError('Please enter your name'); return; }
   if (!address || address.length < 20) { showError('Please enter a valid TON address'); return; }
-  if (!amount || amount < CONFIG.WITHDRAW_MIN) {
-    showError('Minimum withdrawal: 5 AWV = 1 GRAM');
-    return;
-  }
+  if (!amount || amount < CONFIG.WITHDRAW_MIN) { showError('Minimum withdrawal: 5 AWV = 1 GRAM'); return; }
   if (amount > state.balance) { showError('Insufficient balance. You have ' + fmt(state.balance, 5) + ' AWV'); return; }
 
   const submitBtn = document.getElementById('withdrawSubmitBtn');
@@ -1035,31 +1123,16 @@ function createParticles() {
   }
 }
 
-// ============ AD ROTATIONS ============
-function setupAdRotation(ids, interval = 3000) {
-  const imgs = ids.map(id => document.getElementById(id)).filter(Boolean);
-  if (imgs.length < 2) return;
-  let idx = 0;
-  setInterval(() => {
-    idx = (idx + 1) % imgs.length;
-    imgs.forEach((img, i) => img.classList.toggle('active', i === idx));
-  }, interval);
-}
-
 // ============ INIT ============
 function init() {
   loadState();
-  if (!localStorage.getItem('awv_v13')) {
+  if (!localStorage.getItem('awv_v14')) {
     state.balance = CONFIG.STARTING_BALANCE;
     saveState();
   }
   createParticles();
   updateUI();
   if (state.ownedVehicles.length > 0) startMining();
-
-  setupAdRotation(['adGame1', 'adGame2']);
-  setupAdRotation(['adWithdraw1', 'adWithdraw2']);
-  setupAdRotation(['adRef1', 'adRef2']);
 
   setTimeout(() => { registerReferral(); }, 1000);
 }
