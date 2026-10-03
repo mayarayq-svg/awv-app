@@ -18,10 +18,9 @@
 
 <style>
 /* ═══════════════════════════════════════════════════════════
-   PLAY WATCH v12.0 — Advanced Blue + Multi-Accent
+   PLAY WATCH v12.2 — Advanced Blue
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Blue Base */
   --navy: #1E3B88;
   --navy-deep: #14295F;
   --cobalt: #2B61A9;
@@ -33,7 +32,6 @@
   --powder: #D3E7F8;
   --light: #F0F8FF;
   
-  /* Accent Palette */
   --violet: #7C5CFC;
   --violet-bright: #9B85FF;
   --cyan: #00D4FF;
@@ -42,43 +40,34 @@
   --mint-bright: #4DFFD1;
   --amber: #FFB547;
   --amber-bright: #FFC978;
-  --rose: #FF5C8A;
-  --rose-bright: #FF85A8;
   
-  /* Backgrounds */
   --bg-0: #060D24;
   --bg-1: #0A1530;
   --bg-2: #0E1D42;
   
-  /* Glass */
   --glass-2: rgba(20, 38, 84, 0.72);
   --glass-border: rgba(135, 206, 235, 0.15);
   --glass-border-hi: rgba(135, 206, 235, 0.4);
   --glass-top: rgba(240, 248, 255, 0.06);
   
-  /* Text */
   --text-0: #FFFFFF;
   --text-1: #E0EDFB;
   --text-2: #A8C4E4;
   --text-3: #6B8CB4;
   
-  /* Status */
   --success: #4ADE80;
   --warning: #FFB547;
   --danger: #F87171;
   
-  /* Gradients */
   --grad-blue: linear-gradient(135deg, #3A78C4 0%, #1E3B88 100%);
   --grad-violet: linear-gradient(135deg, #7C5CFC 0%, #3A78C4 100%);
   --grad-cyan: linear-gradient(135deg, #00D4FF 0%, #4782B4 100%);
   --grad-mint: linear-gradient(135deg, #00E5B8 0%, #00A884 100%);
   --grad-amber: linear-gradient(135deg, #FFB547 0%, #E68A00 100%);
-  --grad-rose: linear-gradient(135deg, #FF5C8A 0%, #C42D60 100%);
   --grad-hero: linear-gradient(155deg, rgba(58, 120, 196, 0.15) 0%, rgba(30, 59, 136, 0.35) 100%);
   
   --r-sm: 10px; --r-md: 14px; --r-lg: 18px; --r-xl: 22px; --r-2xl: 26px; --r-pill: 50px;
   
-  /* FAST TRANSITIONS */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -87,11 +76,7 @@
   --t-slow: 320ms;
 }
 
-*, *::before, *::after {
-  margin: 0; padding: 0; box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
@@ -112,7 +97,6 @@ body {
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; outline: none; }
 input { font: inherit; outline: none; border: none; }
 
-/* ═══ BACKGROUND ═══ */
 .bg-aurora {
   position: fixed; inset: 0; z-index: -3; overflow: hidden;
   background: 
@@ -183,8 +167,6 @@ input { font: inherit; outline: none; border: none; }
   background: linear-gradient(90deg, transparent, rgba(135, 206, 235, 0.4), transparent);
 }
 
-.card:active { transform: scale(0.99); }
-
 /* ═══ WALLET HERO ═══ */
 .wallet {
   position: relative;
@@ -196,10 +178,7 @@ input { font: inherit; outline: none; border: none; }
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 var(--glass-top);
-  transition: border-color var(--t-fast);
 }
-
-.wallet:active { border-color: var(--glass-border-hi); }
 
 .wallet::before {
   content: ''; position: absolute;
@@ -331,15 +310,6 @@ input { font: inherit; outline: none; border: none; }
   overflow: hidden;
 }
 
-.withdraw-btn::before {
-  content: ''; position: absolute; top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(135, 206, 235, 0.3), transparent);
-  transition: left 0.6s var(--ease);
-}
-
-.withdraw-btn:active::before { left: 100%; }
-
 .withdraw-btn:hover, .withdraw-btn:active {
   background: var(--grad-blue);
   border-color: var(--sky);
@@ -358,10 +328,7 @@ input { font: inherit; outline: none; border: none; }
   padding: 11px 12px; border-radius: var(--r-md);
   background: rgba(6, 13, 36, 0.5);
   border: 1px solid var(--glass-border);
-  transition: border-color var(--t-fast);
 }
-
-.stat:active { border-color: var(--glass-border-hi); }
 
 .stat-info { display: flex; flex-direction: column; gap: 2px; }
 
@@ -423,7 +390,6 @@ input { font: inherit; outline: none; border: none; }
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow: inset 0 1px 0 var(--glass-top), 0 3px 14px rgba(0, 0, 0, 0.4);
-  transition: border-color var(--t-fast), transform var(--t-fast);
 }
 
 .network-card::before {
@@ -431,8 +397,6 @@ input { font: inherit; outline: none; border: none; }
   top: 0; left: 18px; right: 18px; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(135, 206, 235, 0.4), transparent);
 }
-
-.network-card:active { transform: scale(0.995); }
 
 .nc-head {
   display: flex; align-items: center; justify-content: space-between;
@@ -582,15 +546,6 @@ input { font: inherit; outline: none; border: none; }
   overflow: hidden;
 }
 
-.nc-watch-btn::before {
-  content: ''; position: absolute; top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: left 0.5s var(--ease);
-}
-
-.nc-watch-btn:active::before { left: 100%; }
-
 .nc-watch-btn:active:not(:disabled) { transform: scale(0.95); }
 
 .nc-watch-btn:disabled {
@@ -669,12 +624,6 @@ input { font: inherit; outline: none; border: none; }
     0 20px 60px rgba(0, 0, 0, 0.7),
     0 0 40px rgba(58, 120, 196, 0.2);
   isolation: isolate;
-  animation: bannerPulse 2s ease-in-out infinite;
-}
-
-@keyframes bannerPulse {
-  0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(58, 120, 196, 0.2); }
-  50%      { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 60px rgba(135, 206, 235, 0.45); }
 }
 
 .adv-slider {
@@ -718,14 +667,8 @@ input { font: inherit; outline: none; border: none; }
 }
 
 @keyframes glowPulse {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(135, 206, 235, 0.7), 0 0 20px rgba(135, 206, 235, 0.4), 0 2px 4px rgba(0, 0, 0, 0.9);
-    opacity: 0.92;
-  }
-  50% {
-    text-shadow: 0 0 14px rgba(135, 206, 235, 1), 0 0 28px rgba(135, 206, 235, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9);
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.92; }
+  50%      { opacity: 1; }
 }
 
 .adv-bottom {
@@ -757,7 +700,6 @@ input { font: inherit; outline: none; border: none; }
   border-radius: var(--r-pill);
   overflow: hidden;
   border: 1px solid rgba(135, 206, 235, 0.2);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .adv-progress-fill {
@@ -767,18 +709,6 @@ input { font: inherit; outline: none; border: none; }
   box-shadow: 0 0 12px rgba(135, 206, 235, 0.8);
   transition: width 0.3s linear;
   position: relative; overflow: hidden;
-}
-
-.adv-progress-fill::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(240, 248, 255, 0.5), transparent);
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
 }
 
 .adv-warning {
@@ -826,7 +756,6 @@ input { font: inherit; outline: none; border: none; }
   font-size: 1.8rem; font-weight: 800;
   color: var(--light);
   margin-bottom: 8px;
-  letter-spacing: -0.02em;
 }
 
 .adv-reward p {
@@ -852,11 +781,8 @@ input { font: inherit; outline: none; border: none; }
   letter-spacing: 1px;
   border: none; cursor: pointer;
   box-shadow: 0 8px 24px rgba(58, 120, 196, 0.5);
-  transition: all var(--t-fast);
   display: inline-flex; align-items: center; gap: 8px;
 }
-
-.adv-close-btn:active { transform: scale(0.96); }
 
 /* ═══ BUTTONS ═══ */
 .btn {
@@ -865,9 +791,7 @@ input { font: inherit; outline: none; border: none; }
   gap: 6px; padding: 11px 18px;
   border-radius: 12px; font-weight: 700;
   font-size: 0.82rem;
-  white-space: nowrap;
   transition: transform var(--t-fast) var(--ease-spring);
-  overflow: hidden;
 }
 
 .btn:active { transform: scale(0.95); }
@@ -878,18 +802,9 @@ input { font: inherit; outline: none; border: none; }
   box-shadow: 0 5px 16px rgba(58, 120, 196, 0.4);
 }
 
-.btn-ghost {
-  background: rgba(135, 206, 235, 0.08);
-  border: 1px solid var(--glass-border);
-  color: var(--text-1);
-}
-
-.btn-ghost:hover { border-color: var(--sky); color: var(--light); }
-
 .btn-block { width: 100%; }
-.btn-sm { padding: 8px 14px; font-size: 0.75rem; border-radius: 10px; }
 
-/* ═══ TASK GRID (Icon cards only) ═══ */
+/* ═══ TASK GRID ═══ */
 .task-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -913,8 +828,7 @@ input { font: inherit; outline: none; border: none; }
   box-shadow: inset 0 1px 0 var(--glass-top), 0 4px 16px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   transition: transform var(--t-fast) var(--ease-spring),
-              border-color var(--t-fast) var(--ease),
-              box-shadow var(--t-base) var(--ease);
+              border-color var(--t-fast) var(--ease);
   overflow: hidden;
 }
 
@@ -927,7 +841,6 @@ input { font: inherit; outline: none; border: none; }
 .task-card:active {
   transform: scale(0.96);
   border-color: var(--glass-border-hi);
-  box-shadow: inset 0 1px 0 var(--glass-top), 0 8px 28px rgba(58, 120, 196, 0.3);
 }
 
 .task-icon-wrap {
@@ -969,15 +882,12 @@ input { font: inherit; outline: none; border: none; }
 .task-icon-wrap.grad-violet { background: var(--grad-violet); }
 .task-icon-wrap.grad-cyan   { background: var(--grad-cyan); color: var(--navy-deep); }
 .task-icon-wrap.grad-mint   { background: var(--grad-mint); color: var(--navy-deep); }
-.task-icon-wrap.grad-amber  { background: var(--grad-amber); color: var(--navy-deep); }
-.task-icon-wrap.grad-rose   { background: var(--grad-rose); }
 
 .task-card-title {
   font-size: 0.86rem;
   font-weight: 800;
   color: var(--text-0);
   text-align: center;
-  letter-spacing: 0.2px;
 }
 
 .task-card-sub {
@@ -1029,11 +939,9 @@ input { font: inherit; outline: none; border: none; }
   gap: 10px; padding: 12px 0;
   border-bottom: 1px solid rgba(135, 206, 235, 0.1);
   cursor: pointer;
-  transition: padding-left var(--t-fast);
 }
 
 .menu-row:last-child { border-bottom: none; }
-.menu-row:hover { padding-left: 5px; }
 
 .menu-left {
   display: flex; align-items: center; gap: 10px;
@@ -1076,7 +984,7 @@ input { font: inherit; outline: none; border: none; }
   border: 1px solid rgba(135, 206, 235, 0.2);
   backdrop-filter: blur(22px) saturate(150%);
   -webkit-backdrop-filter: blur(22px) saturate(150%);
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(240, 248, 255, 0.04);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6);
   pointer-events: auto; overflow: hidden;
 }
 
@@ -1086,12 +994,10 @@ input { font: inherit; outline: none; border: none; }
   border-radius: 14px;
   background: rgba(58, 120, 196, 0.22);
   border: 1px solid rgba(135, 206, 235, 0.45);
-  box-shadow: 0 0 16px rgba(135, 206, 235, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 16px rgba(135, 206, 235, 0.3);
   transition: left var(--t-slow) var(--ease-spring),
               width var(--t-slow) var(--ease-spring);
   pointer-events: none; z-index: 0;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .nav-btn {
@@ -1102,7 +1008,7 @@ input { font: inherit; outline: none; border: none; }
   gap: 3px; padding: 7px 4px;
   color: var(--text-3);
   font-size: 0.6rem; font-weight: 700;
-  border-radius: 11px; min-width: 0;
+  min-width: 0;
 }
 
 .nav-btn i {
@@ -1116,7 +1022,6 @@ input { font: inherit; outline: none; border: none; }
   max-width: 100%;
 }
 
-.nav-btn:active { transform: scale(0.92); }
 .nav-btn.active { color: var(--sky); }
 .nav-btn.active i {
   transform: translateY(-2px) scale(1.12);
@@ -1149,7 +1054,7 @@ input { font: inherit; outline: none; border: none; }
   padding: 12px 18px; border-radius: var(--r-pill);
   background: var(--grad-blue); color: var(--light);
   font-size: 0.82rem; font-weight: 700;
-  box-shadow: 0 12px 30px rgba(58, 120, 196, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 30px rgba(58, 120, 196, 0.5);
   transform: translateY(120%) scale(0.85);
   opacity: 0;
   transition: transform 380ms var(--ease-spring), opacity 220ms var(--ease);
@@ -1157,6 +1062,7 @@ input { font: inherit; outline: none; border: none; }
 
 .toast.show { transform: translateY(0) scale(1); opacity: 1; }
 .toast.error { background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%); }
+.toast.success { background: var(--grad-mint); color: var(--navy-deep); }
 
 /* ═══ CONFETTI ═══ */
 .confetti-piece {
@@ -1299,20 +1205,46 @@ input { font: inherit; outline: none; border: none; }
 
 .m-btn.primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* ═══ DEBUG PANEL (Temporary) ═══ */
+.debug-panel {
+  position: fixed;
+  bottom: 200px;
+  left: 12px;
+  right: 12px;
+  max-width: 440px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid #00E5B8;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #00E5B8;
+  z-index: 99998;
+  display: none;
+  max-height: 180px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+
+.debug-panel.show { display: block; }
+
+.debug-panel .dbg-row {
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(0, 229, 184, 0.15);
+}
+
+.debug-panel .dbg-err { color: #F87171; }
+.debug-panel .dbg-ok { color: #4ADE80; }
+
 @media (min-width: 640px) {
   .app { max-width: 560px; padding: 22px 20px 140px; }
   .nav { max-width: 560px; }
   .bal-num { font-size: 3.3rem; }
 }
 
-@media (min-width: 1024px) {
-  .app { max-width: 640px; }
-  .nav { max-width: 640px; }
-}
-
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(135, 206, 235, 0.4); border-radius: 3px; }
+::-webkit-scrollbar::-webkit-scrollbar-thumb { background: rgba(135, 206, 235, 0.4); border-radius: 3px; }
 </style>
 </head>
 <body>
@@ -1325,9 +1257,8 @@ input { font: inherit; outline: none; border: none; }
 
 <div class="app">
 
-  <!-- ═══ PAGE 1: WATCH ADS ═══ -->
+  <!-- WATCH -->
   <div class="page active" id="page-watch">
-
     <div class="wallet">
       <div class="w-head">
         <div class="w-user">
@@ -1336,7 +1267,6 @@ input { font: inherit; outline: none; border: none; }
         </div>
         <span class="tier-pill"><i class="fa-solid fa-medal"></i> Bronze</span>
       </div>
-
       <div class="bal-label">YOUR EARNINGS</div>
       <div class="bal-row">
         <span class="bal-num" id="balance">0.0000</span>
@@ -1344,14 +1274,12 @@ input { font: inherit; outline: none; border: none; }
           <img src="usdt.png" alt="USDT" onerror="this.style.display='none'">
         </div>
       </div>
-
       <div class="withdraw-row">
         <button class="withdraw-btn" onclick="openWithdraw()">
           <i class="fa-solid fa-arrow-up-from-bracket"></i>
           Withdraw
         </button>
       </div>
-
       <div class="stats">
         <div class="stat">
           <div class="stat-info">
@@ -1375,7 +1303,6 @@ input { font: inherit; outline: none; border: none; }
       <span class="sec-count">3 networks</span>
     </div>
 
-    <!-- ADS 1 -->
     <div class="network-card">
       <div class="nc-head">
         <div class="nc-head-left">
@@ -1385,31 +1312,21 @@ input { font: inherit; outline: none; border: none; }
               <h4>ADS 1</h4>
               <span class="nc-tag blue"><i class="fa-solid fa-bolt"></i> Top</span>
             </div>
-            <div class="nc-reward">
-              <i class="fa-solid fa-dollar-sign"></i>
-              <span>+0.0005 per view</span>
-            </div>
+            <div class="nc-reward"><i class="fa-solid fa-dollar-sign"></i><span>+0.0005 per view</span></div>
           </div>
         </div>
       </div>
       <div class="nc-bottom">
         <div class="nc-limit">
-          <div class="nc-limit-top">
-            <span>Daily Limit</span>
-            <strong id="cnt-net1">0 / 50</strong>
-          </div>
-          <div class="nc-limit-bar">
-            <div class="nc-limit-fill" id="bar-net1"></div>
-          </div>
+          <div class="nc-limit-top"><span>Daily Limit</span><strong id="cnt-net1">0 / 50</strong></div>
+          <div class="nc-limit-bar"><div class="nc-limit-fill" id="bar-net1"></div></div>
         </div>
         <button class="nc-watch-btn" id="btn-net1" onclick="openAdViewer('net1')">
-          <i class="fa-solid fa-play"></i>
-          <span>Watch</span>
+          <i class="fa-solid fa-play"></i><span>Watch</span>
         </button>
       </div>
     </div>
 
-    <!-- ADS 2 -->
     <div class="network-card">
       <div class="nc-head">
         <div class="nc-head-left">
@@ -1419,31 +1336,21 @@ input { font: inherit; outline: none; border: none; }
               <h4>ADS 2</h4>
               <span class="nc-tag violet"><i class="fa-solid fa-star"></i> High RPM</span>
             </div>
-            <div class="nc-reward violet">
-              <i class="fa-solid fa-dollar-sign"></i>
-              <span>+0.0003 per view</span>
-            </div>
+            <div class="nc-reward violet"><i class="fa-solid fa-dollar-sign"></i><span>+0.0003 per view</span></div>
           </div>
         </div>
       </div>
       <div class="nc-bottom">
         <div class="nc-limit">
-          <div class="nc-limit-top">
-            <span>Daily Limit</span>
-            <strong id="cnt-net2">0 / 50</strong>
-          </div>
-          <div class="nc-limit-bar">
-            <div class="nc-limit-fill violet" id="bar-net2"></div>
-          </div>
+          <div class="nc-limit-top"><span>Daily Limit</span><strong id="cnt-net2">0 / 50</strong></div>
+          <div class="nc-limit-bar"><div class="nc-limit-fill violet" id="bar-net2"></div></div>
         </div>
         <button class="nc-watch-btn" id="btn-net2" onclick="openAdViewer('net2')">
-          <i class="fa-solid fa-play"></i>
-          <span>Watch</span>
+          <i class="fa-solid fa-play"></i><span>Watch</span>
         </button>
       </div>
     </div>
 
-    <!-- ADS 3 -->
     <div class="network-card">
       <div class="nc-head">
         <div class="nc-head-left">
@@ -1453,64 +1360,43 @@ input { font: inherit; outline: none; border: none; }
               <h4>ADS 3</h4>
               <span class="nc-tag mint"><i class="fa-solid fa-check"></i> Verified</span>
             </div>
-            <div class="nc-reward mint">
-              <i class="fa-solid fa-dollar-sign"></i>
-              <span>+0.0002 per view</span>
-            </div>
+            <div class="nc-reward mint"><i class="fa-solid fa-dollar-sign"></i><span>+0.0002 per view</span></div>
           </div>
         </div>
       </div>
       <div class="nc-bottom">
         <div class="nc-limit">
-          <div class="nc-limit-top">
-            <span>Daily Limit</span>
-            <strong id="cnt-net3">0 / 50</strong>
-          </div>
-          <div class="nc-limit-bar">
-            <div class="nc-limit-fill cyan" id="bar-net3"></div>
-          </div>
+          <div class="nc-limit-top"><span>Daily Limit</span><strong id="cnt-net3">0 / 50</strong></div>
+          <div class="nc-limit-bar"><div class="nc-limit-fill cyan" id="bar-net3"></div></div>
         </div>
         <button class="nc-watch-btn" id="btn-net3" onclick="openAdViewer('net3')">
-          <i class="fa-solid fa-play"></i>
-          <span>Watch</span>
+          <i class="fa-solid fa-play"></i><span>Watch</span>
         </button>
       </div>
     </div>
-
   </div>
 
-  <!-- ═══ PAGE 2: TASKS (Icon Grid Only) ═══ -->
+  <!-- TASKS -->
   <div class="page" id="page-tasks">
-
     <div class="sec" style="margin-top:4px">
       <i class="fa-brands fa-telegram"></i> Telegram Tasks
     </div>
-
     <div class="task-grid">
-      <!-- Bot 1 -->
       <div class="task-card" onclick="openTask('bot1')">
-        <div class="task-icon-wrap grad-violet">
-          <i class="fa-solid fa-robot"></i>
-        </div>
+        <div class="task-icon-wrap grad-violet"><i class="fa-solid fa-robot"></i></div>
         <div class="task-card-title">Bot 1</div>
         <div class="task-card-sub violet">+0.0010 USDT</div>
       </div>
-
-      <!-- Bot 2 -->
       <div class="task-card" onclick="openTask('bot2')">
-        <div class="task-icon-wrap grad-cyan">
-          <i class="fa-solid fa-rocket"></i>
-        </div>
+        <div class="task-icon-wrap grad-cyan"><i class="fa-solid fa-rocket"></i></div>
         <div class="task-card-title">Bot 2</div>
         <div class="task-card-sub">+0.0010 USDT</div>
       </div>
     </div>
 
-    <!-- Invite Friends -->
     <div class="sec" style="margin-top:20px">
       <i class="fa-solid fa-user-group"></i> Invite Friends
     </div>
-
     <div class="task-grid" style="grid-template-columns:1fr">
       <div class="task-card" onclick="shareRefLink()">
         <div class="task-icon-wrap grad-mint" style="width:70px;height:70px;font-size:1.9rem;">
@@ -1520,10 +1406,9 @@ input { font: inherit; outline: none; border: none; }
         <div class="task-card-sub mint">+0.0010 USDT each</div>
       </div>
     </div>
-
   </div>
 
-  <!-- ═══ PAGE 3: REFERRALS ═══ -->
+  <!-- REFERRALS -->
   <div class="page" id="page-refs">
     <div class="wallet" style="text-align:center;padding:24px 20px">
       <div style="font-size:2.4rem;margin-bottom:12px;color:var(--sky)">
@@ -1539,7 +1424,7 @@ input { font: inherit; outline: none; border: none; }
     <div class="card">
       <div class="sec" style="margin:0 0 12px"><i class="fa-solid fa-link"></i> Your Referral Link</div>
       <div class="ref-link">
-        <div class="ref-input" id="refLink">https://t.me/BOT?startapp=ref_0</div>
+        <div class="ref-input" id="refLink">Loading...</div>
         <button class="copy-btn" id="copyBtn" onclick="copyRefLink()"><i class="fa-solid fa-copy"></i></button>
       </div>
       <button class="btn btn-primary btn-block" style="margin-top:10px" onclick="shareRefLink()">
@@ -1550,7 +1435,7 @@ input { font: inherit; outline: none; border: none; }
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
       <div class="card" style="text-align:center;margin:0">
         <div class="bal-label" style="margin-bottom:6px">TOTAL EARNED</div>
-        <div style="font-family:'Space Grotesk';font-size:1.5rem;font-weight:800;color:var(--sky)" id="refTotalIncome">0.00</div>
+        <div style="font-family:'Space Grotesk';font-size:1.5rem;font-weight:800;color:var(--sky)" id="refTotalIncome">0.0000</div>
         <div style="color:var(--text-3);font-size:0.65rem;margin-top:4px">USDT</div>
       </div>
       <div class="card" style="text-align:center;margin:0">
@@ -1559,36 +1444,9 @@ input { font: inherit; outline: none; border: none; }
         <div style="color:var(--text-3);font-size:0.65rem;margin-top:4px">Confirmed</div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="sec" style="margin:0 0 12px"><i class="fa-solid fa-circle-info"></i> How it works</div>
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="display:flex;gap:10px;align-items:flex-start">
-          <div class="menu-ico blue" style="width:32px;height:32px;font-size:0.8rem;border-radius:10px;flex-shrink:0">1</div>
-          <div>
-            <h4 style="font-size:0.84rem;font-weight:700;margin-bottom:2px">Share your link</h4>
-            <p style="font-size:0.72rem;color:var(--text-3);line-height:1.5">Send your unique referral link</p>
-          </div>
-        </div>
-        <div style="display:flex;gap:10px;align-items:flex-start">
-          <div class="menu-ico violet" style="width:32px;height:32px;font-size:0.8rem;border-radius:10px;flex-shrink:0">2</div>
-          <div>
-            <h4 style="font-size:0.84rem;font-weight:700;margin-bottom:2px">Friend joins</h4>
-            <p style="font-size:0.72rem;color:var(--text-3);line-height:1.5">They sign up via the bot</p>
-          </div>
-        </div>
-        <div style="display:flex;gap:10px;align-items:flex-start">
-          <div class="menu-ico mint" style="width:32px;height:32px;font-size:0.8rem;border-radius:10px;flex-shrink:0">3</div>
-          <div>
-            <h4 style="font-size:0.84rem;font-weight:700;margin-bottom:2px">You get paid</h4>
-            <p style="font-size:0.72rem;color:var(--text-3);line-height:1.5">Receive 0.0010 USDT instantly</p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- ═══ PAGE 4: PROFILE ═══ -->
+  <!-- PROFILE -->
   <div class="page" id="page-profile">
     <div class="wallet" style="padding:20px">
       <div class="w-head" style="margin-bottom:0">
@@ -1610,20 +1468,7 @@ input { font: inherit; outline: none; border: none; }
       <div class="menu-row" onclick="openWithdraw()">
         <div class="menu-left">
           <div class="menu-ico blue"><i class="fa-solid fa-wallet"></i></div>
-          <div class="menu-info">
-            <h4>Withdraw Funds</h4>
-            <p>Request withdrawal via email</p>
-          </div>
-        </div>
-        <i class="fa-solid fa-chevron-right menu-arrow"></i>
-      </div>
-      <div class="menu-row" onclick="toast('No transactions yet','fa-clock-rotate-left')">
-        <div class="menu-left">
-          <div class="menu-ico violet"><i class="fa-solid fa-right-left"></i></div>
-          <div class="menu-info">
-            <h4>Transaction History</h4>
-            <p>View earnings & withdrawals</p>
-          </div>
+          <div class="menu-info"><h4>Withdraw Funds</h4><p>Request withdrawal via email</p></div>
         </div>
         <i class="fa-solid fa-chevron-right menu-arrow"></i>
       </div>
@@ -1631,13 +1476,6 @@ input { font: inherit; outline: none; border: none; }
 
     <div class="sec"><i class="fa-solid fa-headset"></i> Support</div>
     <div class="card" style="padding:4px 16px">
-      <div class="menu-row" onclick="toast('FAQ coming soon','fa-circle-question')">
-        <div class="menu-left">
-          <div class="menu-ico amber"><i class="fa-solid fa-circle-question"></i></div>
-          <div class="menu-info"><h4>FAQ</h4><p>Frequently asked questions</p></div>
-        </div>
-        <i class="fa-solid fa-chevron-right menu-arrow"></i>
-      </div>
       <div class="menu-row" onclick="openSupport()">
         <div class="menu-left">
           <div class="menu-ico mint"><i class="fa-solid fa-comments"></i></div>
@@ -1653,34 +1491,43 @@ input { font: inherit; outline: none; border: none; }
         <i class="fa-solid fa-chevron-right menu-arrow"></i>
       </div>
     </div>
+
+    <!-- Debug Toggle -->
+    <div class="sec"><i class="fa-solid fa-bug"></i> Debug</div>
+    <div class="card" style="padding:4px 16px">
+      <div class="menu-row" onclick="toggleDebug()">
+        <div class="menu-left">
+          <div class="menu-ico amber"><i class="fa-solid fa-terminal"></i></div>
+          <div class="menu-info"><h4>Debug Panel</h4><p>Show logs & errors</p></div>
+        </div>
+        <i class="fa-solid fa-chevron-right menu-arrow"></i>
+      </div>
+    </div>
   </div>
 
-  <!-- ═══ NAV ═══ -->
   <nav class="nav">
     <div class="nav-bar">
       <div class="nav-blur" id="navBlur"></div>
       <button class="nav-btn active" data-page="watch" onclick="switchPage(this,'watch')">
-        <i class="fa-solid fa-play"></i>
-        <span>Watch</span>
+        <i class="fa-solid fa-play"></i><span>Watch</span>
       </button>
       <button class="nav-btn" data-page="tasks" onclick="switchPage(this,'tasks')">
-        <i class="fa-solid fa-list-check"></i>
-        <span>Tasks</span>
+        <i class="fa-solid fa-list-check"></i><span>Tasks</span>
       </button>
       <button class="nav-btn" data-page="refs" onclick="switchPage(this,'refs')">
-        <i class="fa-solid fa-user-group"></i>
-        <span>Referrals</span>
+        <i class="fa-solid fa-user-group"></i><span>Referrals</span>
       </button>
       <button class="nav-btn" data-page="profile" onclick="switchPage(this,'profile')">
-        <i class="fa-solid fa-user"></i>
-        <span>Profile</span>
+        <i class="fa-solid fa-user"></i><span>Profile</span>
       </button>
     </div>
   </nav>
-
 </div>
 
-<!-- ═══ AD VIEWER ═══ -->
+<!-- DEBUG PANEL -->
+<div class="debug-panel" id="debugPanel"></div>
+
+<!-- AD VIEWER -->
 <div class="ad-viewer" id="adViewer">
   <div class="adv-top">
     <div class="adv-label">
@@ -1721,9 +1568,7 @@ input { font: inherit; outline: none; border: none; }
   </div>
 
   <div class="adv-reward">
-    <div class="adv-reward-icon">
-      <i class="fa-solid fa-check"></i>
-    </div>
+    <div class="adv-reward-icon"><i class="fa-solid fa-check"></i></div>
     <h2>Reward Earned!</h2>
     <p>You watched the full ad</p>
     <div class="adv-reward-amount">
@@ -1736,7 +1581,7 @@ input { font: inherit; outline: none; border: none; }
   </div>
 </div>
 
-<!-- ═══ WITHDRAW MODAL ═══ -->
+<!-- WITHDRAW MODAL -->
 <div class="modal-overlay" id="withdrawModal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-head">
@@ -1776,7 +1621,7 @@ input { font: inherit; outline: none; border: none; }
 
       <div class="modal-note">
         <i class="fa-solid fa-circle-info"></i>
-        <span>Withdrawals are processed within 24 hours via email. Make sure your details are correct.</span>
+        <span>Withdrawals are processed within 24 hours via email.</span>
       </div>
 
       <div class="modal-actions">
@@ -1793,22 +1638,67 @@ input { font: inherit; outline: none; border: none; }
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   CONFIG
+   DEBUG LOGGER
+   ═══════════════════════════════════════════════════════════ */
+const DEBUG = { enabled: false, logs: [] };
+
+function dlog(msg, type = 'info') {
+  const time = new Date().toLocaleTimeString();
+  const prefix = type === 'err' ? '❌' : type === 'ok' ? '✅' : 'ℹ️';
+  const line = `${prefix} [${time}] ${msg}`;
+  console.log(line);
+  DEBUG.logs.push({ line, type });
+  if (DEBUG.enabled) renderDebug();
+}
+
+function renderDebug() {
+  const panel = document.getElementById('debugPanel');
+  if (!panel) return;
+  panel.innerHTML = DEBUG.logs.slice(-20).map(l => 
+    `<div class="dbg-row ${l.type === 'err' ? 'dbg-err' : l.type === 'ok' ? 'dbg-ok' : ''}">${l.line}</div>`
+  ).join('');
+  panel.scrollTop = panel.scrollHeight;
+}
+
+function toggleDebug() {
+  DEBUG.enabled = !DEBUG.enabled;
+  document.getElementById('debugPanel').classList.toggle('show', DEBUG.enabled);
+  if (DEBUG.enabled) renderDebug();
+  toast(DEBUG.enabled ? 'Debug ON' : 'Debug OFF', 'fa-bug');
+}
+
+window.addEventListener('error', (e) => {
+  dlog(`JS Error: ${e.message} at ${e.filename}:${e.lineno}`, 'err');
+});
+
+/* ═══════════════════════════════════════════════════════════
+   ⚠️ IMPORTANT CONFIG — CHANGE THESE!
+   ═══════════════════════════════════════════════════════════
+   
+   BOT_USERNAME: اسم البوت الفعلي بدون @
+                 مثال: AWVEARNBot
+   
+   MINIAPP_NAME: الاسم القصير للـ Mini App في BotFather
+                 يمكنك إيجاده من:
+                 BotFather → /mybots → AWVEARNBot → Bot Settings → Mini App
+                 سيكون الرابط: t.me/AWVEARNBot/XXXXX ← XXXXX هو الاسم
+   
    ═══════════════════════════════════════════════════════════ */
 const CONFIG = {
-  BOT_USERNAME: 'PLAYWATCH_BOT',
+  BOT_USERNAME: 'AWVEARNBot',         // ← اسم بوتك
+  MINIAPP_NAME: 'awv',                // ← ⚠️ CHANGE THIS to your actual Mini App name!
   WITHDRAW_MIN: 0.20,
-  REFERRAL_REWARD: 0.0010,    // ← تم التعديل
+  REFERRAL_REWARD: 0.0010,
   WEB3FORMS_KEY: '2fa732dc-e4c7-4107-a4c9-905929f52284',
   SUPABASE_URL: 'https://geepmianewmjkttbnqkl.supabase.co',
   SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZXBtaWFuZXdtamt0dGJucWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NjU1ODIsImV4cCI6MjEwNjU0MTU4Mn0.Fv5DtKqIcNDyK1ifzZ-f_35-zjqOa8Wlq4IT7PXP5QM',
   AD_DURATION: 10,
-  BANNER_ROTATE_MS: 3000,     // ← أسرع
+  BANNER_ROTATE_MS: 3000,
   TASK_URLS: {
     bot1: 'https://t.me/cryptson2_bot?startapp=97249',
     bot2: 'https://t.me/flymage_bot?startapp=295200'
   },
-  SUPPORT_TG: 'https://t.me/PLAYWATCH_SUPPORT'
+  SUPPORT_TG: 'https://t.me/AWVEARNBot'
 };
 
 const NETWORKS = {
@@ -1830,41 +1720,74 @@ const state = {
 const pageMap = { watch: 'page-watch', tasks: 'page-tasks', refs: 'page-refs', profile: 'page-profile' };
 
 /* ═══════════════════════════════════════════════════════════
-   TELEGRAM
+   TELEGRAM INIT
    ═══════════════════════════════════════════════════════════ */
 let TG_START_PARAM = null;
+
 try {
   if (window.Telegram && window.Telegram.WebApp) {
     const tg = window.Telegram.WebApp;
-    tg.ready(); tg.expand();
-    tg.setHeaderColor && tg.setHeaderColor('#1E3B88');
-    tg.setBackgroundColor && tg.setBackgroundColor('#060D24');
+    tg.ready();
+    tg.expand();
+    
+    if (tg.setHeaderColor) tg.setHeaderColor('#1E3B88');
+    if (tg.setBackgroundColor) tg.setBackgroundColor('#060D24');
+    
+    dlog('Telegram WebApp initialized', 'ok');
+    
     if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
       const u = tg.initDataUnsafe.user;
-      state.user.id = u.id;
+      state.user.id = String(u.id);
       state.user.name = (u.first_name || '') + (u.last_name ? ' ' + u.last_name : '');
       state.user.username = u.username || '';
+      dlog(`User: ${state.user.name} (ID: ${state.user.id})`, 'ok');
+    } else {
+      dlog('No user in initDataUnsafe - running in demo mode', 'err');
     }
-    if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) TG_START_PARAM = tg.initDataUnsafe.start_param;
+    
+    if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
+      TG_START_PARAM = tg.initDataUnsafe.start_param;
+      dlog(`Start param from Telegram: ${TG_START_PARAM}`, 'ok');
+    } else {
+      // Fallbacks
+      const urlParams = new URLSearchParams(window.location.search);
+      const fromUrl = urlParams.get('startapp') || urlParams.get('start') || urlParams.get('tgWebAppStartParam');
+      if (fromUrl) {
+        TG_START_PARAM = fromUrl;
+        dlog(`Start param from URL: ${fromUrl}`, 'ok');
+      } else {
+        dlog('No start_param found', 'info');
+      }
+    }
+  } else {
+    dlog('Telegram SDK not loaded - browser mode', 'err');
   }
-} catch (e) {}
+} catch (e) {
+  dlog(`Telegram init error: ${e.message}`, 'err');
+}
 
 /* ═══════════════════════════════════════════════════════════
-   SUPABASE (Referrals only)
+   SUPABASE INIT
    ═══════════════════════════════════════════════════════════ */
 let supabaseClient = null;
+
 try {
   if (window.supabase && CONFIG.SUPABASE_URL && CONFIG.SUPABASE_KEY) {
     supabaseClient = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
+    dlog('Supabase client created', 'ok');
+  } else {
+    dlog('Supabase SDK not loaded', 'err');
   }
-} catch (e) {}
+} catch (e) {
+  dlog(`Supabase init error: ${e.message}`, 'err');
+}
 
 /* ═══════════════════════════════════════════════════════════
    STORAGE
    ═══════════════════════════════════════════════════════════ */
 function saveState() {
   try {
-    localStorage.setItem('pw_v12', JSON.stringify({
+    localStorage.setItem('pw_v12_2', JSON.stringify({
       balance: state.balance,
       weekAds: state.weekAds,
       todayEarned: state.todayEarned,
@@ -1875,7 +1798,7 @@ function saveState() {
 
 function loadState() {
   try {
-    const d = localStorage.getItem('pw_v12');
+    const d = localStorage.getItem('pw_v12_2');
     if (d) {
       const p = JSON.parse(d);
       state.balance = p.balance || 0;
@@ -1891,7 +1814,7 @@ function loadState() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   NAV
+   NAVIGATION
    ═══════════════════════════════════════════════════════════ */
 function switchPage(el, pageId) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1905,6 +1828,7 @@ function switchPage(el, pageId) {
 
 function moveNavBlur(btn) {
   const blur = document.getElementById('navBlur');
+  if (!blur) return;
   const bar = blur.parentElement;
   const br = btn.getBoundingClientRect();
   const ar = bar.getBoundingClientRect();
@@ -1918,7 +1842,9 @@ function moveNavBlur(btn) {
 function haptic(p = 20) {
   if (window.Telegram?.WebApp?.HapticFeedback) {
     try { window.Telegram.WebApp.HapticFeedback.impactOccurred('light'); } catch(e){}
-  } else if (navigator.vibrate) navigator.vibrate(p);
+  } else if (navigator.vibrate) {
+    navigator.vibrate(p);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1926,12 +1852,13 @@ function haptic(p = 20) {
    ═══════════════════════════════════════════════════════════ */
 function toast(msg, icon = 'fa-circle-check', type = '') {
   const stack = document.getElementById('toastStack');
+  if (!stack) return;
   const el = document.createElement('div');
   el.className = 'toast ' + type;
   el.innerHTML = `<i class="fa-solid ${icon}"></i><span>${msg}</span>`;
   stack.appendChild(el);
   requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('show')));
-  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 400); }, 2000);
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 400); }, 2200);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2109,68 +2036,190 @@ function openTask(type) {
    REFERRAL
    ═══════════════════════════════════════════════════════════ */
 function getReferralLink() {
-  return `https://t.me/${CONFIG.BOT_USERNAME}/playwatch?startapp=ref_${state.user.id}`;
+  // Format: https://t.me/AWVEARNBot/awv?startapp=ref_123456789
+  const link = `https://t.me/${CONFIG.BOT_USERNAME}/${CONFIG.MINIAPP_NAME}?startapp=ref_${state.user.id}`;
+  return link;
 }
 
 async function registerReferral() {
-  if (!supabaseClient) return;
+  if (!supabaseClient) {
+    dlog('❌ Supabase not connected — skipping referral', 'err');
+    return;
+  }
+  if (state.user.id === 'demo') {
+    dlog('⚠️ Demo mode — no Telegram user, skipping referral', 'err');
+    return;
+  }
+
   try {
-    const tgId = state.user.id;
+    const tgId = String(state.user.id);
+    dlog(`registerReferral called for ${tgId}`, 'info');
+
+    // Get start param with multiple fallbacks
     let startParam = TG_START_PARAM;
+    
     if (!startParam) {
-      const p = new URLSearchParams(window.location.search);
-      startParam = p.get('start') || p.get('startapp');
+      const urlParams = new URLSearchParams(window.location.search);
+      startParam = urlParams.get('startapp') || urlParams.get('start') || urlParams.get('tgWebAppStartParam');
     }
+    
     if (!startParam && window.Telegram?.WebApp?.initData) {
-      try { startParam = new URLSearchParams(window.Telegram.WebApp.initData).get('start_param'); } catch(e){}
+      try {
+        const initParams = new URLSearchParams(window.Telegram.WebApp.initData);
+        startParam = initParams.get('start_param');
+      } catch(e) {}
     }
+
+    dlog(`Start param: ${startParam || 'none'}`, 'info');
+
+    // Extract referrer ID
     let referrerId = null;
     if (startParam) {
-      const clean = startParam.replace('ref_', '').trim();
-      if (clean && /^\d+$/.test(clean) && clean !== String(tgId)) referrerId = clean;
-    }
-    const { data: existing } = await supabaseClient.from('users').select('*').eq('telegram_id', tgId).maybeSingle();
-    if (existing) {
-      if (!existing.referred_by && referrerId) {
-        await supabaseClient.from('users').update({ referred_by: referrerId }).eq('telegram_id', tgId);
-        await rewardReferrer(referrerId);
+      const clean = startParam.replace(/^ref_/i, '').trim();
+      if (clean && /^\d+$/.test(clean) && clean !== tgId) {
+        referrerId = clean;
       }
-      const { data: refs } = await supabaseClient.from('users').select('first_name, created_at').eq('referred_by', tgId).order('created_at', { ascending: false });
-      if (refs) {
+    }
+
+    dlog(`Referrer ID: ${referrerId || 'none'}`, 'info');
+
+    // Check if user exists
+    const { data: existing, error: fetchErr } = await supabaseClient
+      .from('users')
+      .select('*')
+      .eq('telegram_id', tgId)
+      .maybeSingle();
+
+    if (fetchErr) {
+      dlog(`Fetch error: ${fetchErr.message}`, 'err');
+      return;
+    }
+
+    if (existing) {
+      dlog(`User exists: ${existing.first_name}`, 'ok');
+      
+      // Update referred_by if missing
+      if (!existing.referred_by && referrerId) {
+        const { error: updateErr } = await supabaseClient
+          .from('users')
+          .update({ referred_by: referrerId, last_active: new Date().toISOString() })
+          .eq('telegram_id', tgId);
+        
+        if (updateErr) {
+          dlog(`Update error: ${updateErr.message}`, 'err');
+        } else {
+          dlog(`Linked to referrer ${referrerId}`, 'ok');
+          await rewardReferrer(referrerId);
+        }
+      } else {
+        // Just update last_active
+        await supabaseClient
+          .from('users')
+          .update({ last_active: new Date().toISOString() })
+          .eq('telegram_id', tgId);
+      }
+
+      // Load referral stats
+      const { data: refs, error: refsErr } = await supabaseClient
+        .from('users')
+        .select('first_name, created_at')
+        .eq('referred_by', tgId)
+        .order('created_at', { ascending: false });
+
+      if (refsErr) {
+        dlog(`Refs fetch error: ${refsErr.message}`, 'err');
+      } else if (refs) {
         state.referral.count = refs.length;
         state.referral.totalIncome = refs.length * CONFIG.REFERRAL_REWARD;
         renderReferralUI();
+        dlog(`Loaded ${refs.length} referrals`, 'ok');
       }
       return;
     }
-    await supabaseClient.from('users').insert({
-      telegram_id: tgId, first_name: state.user.name, username: state.user.username,
-      referred_by: referrerId, balance: 0
-    });
-    if (referrerId) await rewardReferrer(referrerId);
-  } catch (e) {}
+
+    // New user
+    dlog(`Creating new user: ${tgId}`, 'info');
+    
+    const { error: insertErr } = await supabaseClient
+      .from('users')
+      .insert({
+        telegram_id: tgId,
+        first_name: state.user.name || 'User',
+        username: state.user.username || null,
+        referred_by: referrerId,
+        balance: 0,
+        referral_earnings: 0
+      });
+
+    if (insertErr) {
+      dlog(`Insert error: ${insertErr.message}`, 'err');
+      return;
+    }
+
+    dlog(`✅ User created successfully`, 'ok');
+
+    if (referrerId) {
+      await rewardReferrer(referrerId);
+    }
+  } catch (e) {
+    dlog(`Referral exception: ${e.message}`, 'err');
+    console.error(e);
+  }
 }
 
 async function rewardReferrer(referrerId) {
   try {
-    const { data: ref } = await supabaseClient.from('users').select('balance, referral_earnings').eq('telegram_id', referrerId).maybeSingle();
-    if (ref) {
-      await supabaseClient.from('users').update({
-        balance: (ref.balance || 0) + CONFIG.REFERRAL_REWARD,
-        referral_earnings: (ref.referral_earnings || 0) + CONFIG.REFERRAL_REWARD
-      }).eq('telegram_id', referrerId);
+    dlog(`Rewarding referrer ${referrerId}...`, 'info');
+    
+    const { data: ref, error: fetchErr } = await supabaseClient
+      .from('users')
+      .select('balance, referral_earnings')
+      .eq('telegram_id', referrerId)
+      .maybeSingle();
+
+    if (fetchErr) {
+      dlog(`Reward fetch error: ${fetchErr.message}`, 'err');
+      return;
     }
-  } catch (e) {}
+
+    if (!ref) {
+      dlog(`Referrer ${referrerId} not found in DB`, 'err');
+      return;
+    }
+
+    const newBalance = (parseFloat(ref.balance) || 0) + CONFIG.REFERRAL_REWARD;
+    const newEarnings = (parseFloat(ref.referral_earnings) || 0) + CONFIG.REFERRAL_REWARD;
+
+    const { error: updateErr } = await supabaseClient
+      .from('users')
+      .update({
+        balance: newBalance,
+        referral_earnings: newEarnings
+      })
+      .eq('telegram_id', referrerId);
+
+    if (updateErr) {
+      dlog(`Reward update error: ${updateErr.message}`, 'err');
+    } else {
+      dlog(`✅ Referrer rewarded: +${CONFIG.REFERRAL_REWARD}`, 'ok');
+    }
+  } catch (e) {
+    dlog(`Reward exception: ${e.message}`, 'err');
+  }
 }
 
 function renderReferralUI() {
-  const l = document.getElementById('refLink'); if (l) l.textContent = getReferralLink();
-  const t = document.getElementById('refTotalIncome'); if (t) t.textContent = state.referral.totalIncome.toFixed(4);
-  const c = document.getElementById('refCount'); if (c) c.textContent = state.referral.count;
+  const l = document.getElementById('refLink');
+  if (l) l.textContent = getReferralLink();
+  const t = document.getElementById('refTotalIncome');
+  if (t) t.textContent = state.referral.totalIncome.toFixed(4);
+  const c = document.getElementById('refCount');
+  if (c) c.textContent = state.referral.count;
 }
 
 function shareRefLink() {
   const link = getReferralLink();
+  dlog(`Sharing link: ${link}`, 'info');
   const text = 'Join PLAY WATCH and earn USDT by watching ads! 💰';
   if (window.Telegram?.WebApp?.openTelegramLink) {
     window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`);
@@ -2204,7 +2253,9 @@ function fallbackCopy(text, cb) {
    WITHDRAW
    ═══════════════════════════════════════════════════════════ */
 function openWithdraw() {
-  if (state.balance < CONFIG.WITHDRAW_MIN) return toast(`Minimum withdrawal: ${CONFIG.WITHDRAW_MIN} USDT`, 'fa-triangle-exclamation', 'error');
+  if (state.balance < CONFIG.WITHDRAW_MIN) {
+    return toast(`Minimum withdrawal: ${CONFIG.WITHDRAW_MIN} USDT`, 'fa-triangle-exclamation', 'error');
+  }
   document.getElementById('wdBalance').textContent = state.balance.toFixed(4) + ' USDT';
   document.getElementById('wdName').value = state.user.name || '';
   document.getElementById('wdEmail').value = '';
@@ -2247,7 +2298,6 @@ async function submitWithdraw() {
     `Amount: ${amount.toFixed(4)} USDT\n` +
     `TON Wallet: ${address}\n` +
     `Balance Before: ${state.balance.toFixed(4)} USDT\n` +
-    `Balance After: ${(state.balance - amount).toFixed(4)} USDT\n` +
     `Date: ${new Date().toLocaleString()}\n`
   );
 
@@ -2277,8 +2327,11 @@ async function submitWithdraw() {
    SUPPORT
    ═══════════════════════════════════════════════════════════ */
 function openSupport() {
-  if (window.Telegram?.WebApp?.openTelegramLink) window.Telegram.WebApp.openTelegramLink(CONFIG.SUPPORT_TG);
-  else window.open(CONFIG.SUPPORT_TG, '_blank');
+  if (window.Telegram?.WebApp?.openTelegramLink) {
+    window.Telegram.WebApp.openTelegramLink(CONFIG.SUPPORT_TG);
+  } else {
+    window.open(CONFIG.SUPPORT_TG, '_blank');
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2288,8 +2341,12 @@ function updateUI() {
   document.getElementById('balance').textContent = state.balance.toFixed(4);
   const g = state.user.name ? `Hey, ${state.user.name.split(' ')[0]}!` : 'Hey, AdWatcher!';
   document.getElementById('userGreeting').innerHTML = `${g} <span class="spark">✨</span>`;
-  if (document.getElementById('profileName')) document.getElementById('profileName').innerHTML = `${state.user.name || 'AdWatcher'} <span class="spark">✨</span>`;
-  if (document.getElementById('profileId')) document.getElementById('profileId').textContent = state.user.username ? `@${state.user.username}` : `@user_${state.user.id}`;
+  if (document.getElementById('profileName')) {
+    document.getElementById('profileName').innerHTML = `${state.user.name || 'AdWatcher'} <span class="spark">✨</span>`;
+  }
+  if (document.getElementById('profileId')) {
+    document.getElementById('profileId').textContent = state.user.username ? `@${state.user.username}` : `@user_${state.user.id}`;
+  }
   document.getElementById('weekAds').textContent = `${state.weekAds} Ads`;
   document.getElementById('todayEarned').textContent = `+${state.todayEarned.toFixed(4)}`;
   ['net1','net2','net3'].forEach(k => updateNetworkUI(k));
@@ -2299,13 +2356,22 @@ function updateUI() {
 /* ═══════════════════════════════════════════════════════════
    INIT
    ═══════════════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  dlog('App starting...', 'info');
   loadState();
   updateUI();
+  
+  // Show referral link
+  renderReferralUI();
+  
   const active = document.querySelector('.nav-btn.active');
   if (active) setTimeout(() => moveNavBlur(active), 100);
+  
   setTimeout(() => toast('Welcome to PLAY WATCH ⚡', 'fa-play'), 500);
+  
+  // Register referral
   setTimeout(() => registerReferral(), 1200);
+  
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.getElementById('adViewer').classList.contains('show') && !state.adViewer.rewarded) {
       e.preventDefault();
