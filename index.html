@@ -537,7 +537,26 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   </div>
 </a>
       </a>
-
+      <!-- زر جمع الإحالات -->
+<div class="collect-ref-box glass" style="margin-bottom: 12px; padding: 14px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <div>
+      <div style="font-size: 10.5px; color: #6a5f8a; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 4px;">PENDING REWARDS</div>
+      <div style="display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 800; color: #fff;">
+        <svg style="width: 18px; height: 18px;" viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="26" fill="url(#fcRim)"/>
+          <circle cx="30" cy="30" r="22" fill="url(#fcFace)"/>
+          <polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/>
+        </svg>
+        <span id="pendingRewards">0.00</span>
+      </div>
+    </div>
+    <button id="collectRefBtn" onclick="collectReferralRewards()" style="padding: 12px 20px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #fff; background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border: 1px solid rgba(74, 222, 128, 0.5); border-radius: 10px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); cursor: pointer; transition: all 0.15s;">
+      COLLECT
+    </button>
+  </div>
+</div>
+      
       <div class="ref-benefits">
         <div class="ref-benefit glass">
           <div class="ref-benefit-pct">
@@ -866,9 +885,30 @@ function updateUI() {
   renderReferralUI();
 }
 
+let collectedReferrals = 0; // المبلغ المُجمَّع سابقاً
+
 function renderReferralUI() {
   el.refTotalIncome.textContent = fmt(state.referral.totalIncome, 2);
   el.refCount.textContent = state.referral.count || 0;
+
+  // احسب المبلغ المتبقي
+  const pending = Math.max(0, state.referral.totalIncome - collectedReferrals);
+  const pendingEl = document.getElementById('pendingRewards');
+  const btn = document.getElementById('collectRefBtn');
+  
+  if (pendingEl) pendingEl.textContent = fmt(pending, 2);
+  
+  if (btn) {
+    if (pending > 0) {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+    } else {
+      btn.disabled = true;
+      btn.style.opacity = '0.4';
+      btn.style.cursor = 'not-allowed';
+    }
+  }
 
   if (!state.referral.history || state.referral.history.length === 0) {
     el.refHistoryList.innerHTML = `<div class="ref-history-row"><div>—</div><div>No referrals yet</div><div class="num">0.00</div></div>`;
@@ -1007,7 +1047,44 @@ function copyRefLink() {
     showToast('Link copied!');
   });
 }
+// ============ COLLECT REFERRAL REWARDS ============
+async function collectReferralRewards() {
+  if (!supabaseClient) { showToast('Error'); return; }
+  
+  const pending = state.referral.totalIncome - collectedReferrals;
+  
+  if (pending <= 0) {
+    showToast('Nothing to collect');
+    return;
+  }
 
+  const btn = document.getElementById('collectRefBtn');
+  btn.disabled = true;
+  btn.textContent = 'COLLECTING...';
+
+  try {
+    // أضف المبلغ للرصيد المحلي
+    state.balance += pending;
+    state.earned += pending;
+    collectedReferrals = state.referral.totalIncome;
+
+    // احفظ في localStorage
+    saveState();
+    localStorage.setItem('awv_collected_referrals', collectedReferrals.toString());
+
+    // حدّث UI
+    el.balanceValue.textContent = fmt(state.balance, 5);
+    el.withdrawBalance.textContent = fmt(state.balance, 5);
+    renderReferralUI();
+
+    showToast('Collected +' + fmt(pending, 2) + ' AWV');
+  } catch (e) {
+    console.error('Collect error:', e);
+    showToast('Error');
+  } finally {
+    btn.textContent = 'COLLECT';
+  }
+}
 // ============ WITHDRAW ============
 function openWithdraw() {
   // تحقق من الحد الأدنى: 5 AWV = 1 GRAM
@@ -1140,6 +1217,12 @@ function setupAdRotation() {
 // ============ INIT ============
 function init() {
   loadState();
+  
+  // حمّل المبلغ المُجمَّع من الإحالات
+  try {
+    const saved = localStorage.getItem('awv_collected_referrals');
+    if (saved) collectedReferrals = parseFloat(saved) || 0;
+  } catch (e) {}
   if (!localStorage.getItem('awv_v12')) {
     state.balance = CONFIG.STARTING_BALANCE;
     saveState();
