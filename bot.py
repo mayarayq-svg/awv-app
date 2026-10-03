@@ -11,7 +11,7 @@ SUPABASE_URL = "https://geepmianewmjkttbnqkl.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZXBtaWFuZXdtamt0dGJucWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NjU1ODIsImV4cCI6MjEwNjU0MTU4Mn0.Fv5DtKqIcNDyK1ifzZ-f_35-zjqOa8Wlq4IT7PXP5QM"
 
 # ⚠️ ضع معرفك هنا (ID تيليجرام) لتكون أنت الوحيد الذي يمكنه البث
-ADMIN_ID = 0  # ← غيّر هذا إلى رقمك
+ADMIN_ID = 7931994096  # ← غيّر هذا إلى رقمك
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
