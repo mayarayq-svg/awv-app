@@ -1192,10 +1192,17 @@ function updateInviteProgress() {
 }
 
 function openClaimGram() {
+  // منع الطلب المتكرر
+  if (localStorage.getItem('awv_gram_claimed')) {
+    showError('You already claimed 1 GRAM');
+    return;
+  }
+
   if (state.referral.count < GRAM_REQUIREMENT) {
     showError('You need ' + GRAM_REQUIREMENT + ' referrals to claim');
     return;
   }
+
   document.getElementById('gramAddress').value = '';
   document.getElementById('claimGramModal').classList.add('show');
 }
