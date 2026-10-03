@@ -98,7 +98,7 @@ async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
 
     # تحقق من صلاحية المشرف
-    if ADMIN_ID != 0 and user_id != ADMIN_ID:
+    if ADMIN_ID != 7931994096 and user_id != ADMIN_ID:
         await update.message.reply_text("❌ You are not authorized.")
         return
 
