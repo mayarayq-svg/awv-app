@@ -604,10 +604,11 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
         <input type="text" class="form-input" id="walletAddress" placeholder="UQ... or EQ..." required>
       </div>
       <div class="form-group">
-        <label class="form-label">AMOUNT (AWV)</label>
-        <input type="text" class="form-input" id="withdrawAmount" placeholder="0.00" required>
-      </div>
-      <div class="form-note">No minimum · 5 AWV = 1 GRAM</div>
+  <label class="form-label">AMOUNT (MIN 5 AWV = 1 GRAM)</label>
+  <input type="text" class="form-input" id="withdrawAmount" placeholder="5.00" required>
+</div>
+<div class="form-note">Minimum: 5 AWV = 1 GRAM</div>
+    
       <div class="modal-actions">
         <button type="button" class="m-btn cancel" onclick="closeModal('withdrawModal')">CANCEL</button>
         <button type="submit" class="m-btn primary" id="withdrawSubmitBtn">WITHDRAW</button>
@@ -1009,12 +1010,17 @@ function copyRefLink() {
 
 // ============ WITHDRAW ============
 function openWithdraw() {
+  // تحقق من الحد الأدنى: 5 AWV = 1 GRAM
+  if (state.balance < CONFIG.WITHDRAW_MIN) {
+    showError(`Minimum withdrawal: 5 AWV = 1 GRAM\n\nYour balance: ${fmt(state.balance, 5)} AWV`);
+    return;
+  }
+  
   document.getElementById('userName').value = state.user.name || '';
   document.getElementById('walletAddress').value = '';
-  document.getElementById('withdrawAmount').value = '';
+  document.getElementById('withdrawAmount').value = CONFIG.WITHDRAW_MIN.toString(); // يعبّئ 5 تلقائياً
   document.getElementById('withdrawModal').classList.add('show');
 }
-
 async function submitWithdraw(e) {
   e.preventDefault();
 
@@ -1024,7 +1030,10 @@ async function submitWithdraw(e) {
 
   if (!userName) { showError('Please enter your name'); return; }
   if (!address || address.length < 20) { showError('Please enter a valid TON address'); return; }
-  if (!amount || amount <= 0) { showError('Please enter a valid amount'); return; }
+  if (!amount || amount < CONFIG.WITHDRAW_MIN) { 
+  showError(`Minimum withdrawal: ${CONFIG.WITHDRAW_MIN} AWV = 1 GRAM`); 
+  return; 
+}
   if (amount > state.balance) { showError(`Insufficient balance. You have ${fmt(state.balance, 5)} AWV`); return; }
 
   const submitBtn = document.getElementById('withdrawSubmitBtn');
