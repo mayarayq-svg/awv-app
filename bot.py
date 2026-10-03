@@ -1,9 +1,9 @@
 import os
 import logging
+import asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-# ========== الإعدادات ==========
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 WEBAPP_URL = "https://mayarayq-svg.github.io/awv-app/"
 
@@ -38,14 +38,25 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode="Markdown"
     )
 
-def main():
+async def main_async():
     if not BOT_TOKEN:
         print("❌ BOT_TOKEN missing!")
         return
     app = Application.builder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     print("✅ Bot running...")
-    app.run_polling()
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+    # Keep running forever
+    stop_signal = asyncio.Event()
+    await stop_signal.wait()
+
+def main():
+    try:
+        asyncio.run(main_async())
+    except (KeyboardInterrupt, SystemExit):
+        print("Bot stopped.")
 
 if __name__ == "__main__":
     main()
