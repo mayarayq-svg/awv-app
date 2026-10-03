@@ -112,46 +112,70 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.9s ease-in-out;
   z-index: 1;
 }
-
 .ad-img.active { opacity: 1; z-index: 2; }
 
-/* START NOW button */
-.ad-start-btn {
+/* AD tag — زاوية عليا داخل الصورة */
+.ad-tag {
   position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 9px 22px;
+  top: 8px;
+  right: 8px;
+  padding: 2px 8px;
   font-family: var(--sans);
-  font-size: 12px;
+  font-size: 9.5px;
   font-weight: 900;
   letter-spacing: 1.5px;
   color: #fff;
-  background: linear-gradient(135deg, #9c5cff 0%, #4a7dff 100%);
-  border: 1px solid rgba(200, 170, 255, 0.6);
-  border-radius: 20px;
-  z-index: 4;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  animation: glowPulse 2s ease-in-out infinite;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 4px;
+  z-index: 5;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+}
+
+/* START NOW — زاوية سفلى داخل الصورة، بدون بوردر، توهج خافت */
+.ad-start-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  padding: 4px 0;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  z-index: 5;
+  text-shadow:
+    0 0 8px rgba(156, 92, 255, 0.85),
+    0 0 16px rgba(156, 92, 255, 0.55),
+    0 0 26px rgba(74, 125, 255, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.9);
   pointer-events: none;
   white-space: nowrap;
+  animation: glowPulse 2.4s ease-in-out infinite;
 }
 
 @keyframes glowPulse {
-  0%, 100% { 
-    box-shadow: 
-      0 4px 15px rgba(122, 60, 216, 0.6),
-      0 0 20px rgba(156, 92, 255, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(156, 92, 255, 0.7),
+      0 0 16px rgba(156, 92, 255, 0.45),
+      0 0 26px rgba(74, 125, 255, 0.3),
+      0 1px 2px rgba(0, 0, 0, 0.9);
+    opacity: 0.92;
   }
-  50% { 
-    box-shadow: 
-      0 4px 20px rgba(122, 60, 216, 0.9),
-      0 0 30px rgba(156, 92, 255, 0.8),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  50% {
+    text-shadow:
+      0 0 12px rgba(156, 92, 255, 1),
+      0 0 22px rgba(156, 92, 255, 0.75),
+      0 0 34px rgba(74, 125, 255, 0.5),
+      0 1px 2px rgba(0, 0, 0, 0.9);
+    opacity: 1;
   }
 }
 
@@ -385,6 +409,7 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       <a class="ad-banner ad-banner-clickable" href="https://t.me/flymage_bot?startapp=295200" target="_blank">
         <img id="adWithdraw1" src="PP1.png" alt="" class="ad-img active">
         <img id="adWithdraw2" src="PP2.png" alt="" class="ad-img">
+        <div class="ad-tag">AD</div>
         <div class="ad-start-btn">START NOW</div>
       </a>
 
@@ -454,6 +479,8 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
       <a class="ad-banner ad-banner-169 ad-banner-clickable" href="https://t.me/cryptson2_bot?startapp=97249" target="_blank">
         <img id="adRef1" src="PP3.png" alt="" class="ad-img active">
         <img id="adRef2" src="PP4.png" alt="" class="ad-img">
+        <div class="ad-tag">AD</div>
+        <div class="ad-start-btn">START NOW</div>
       </a>
 
       <div class="ref-benefits">
@@ -1024,8 +1051,8 @@ function createParticles() {
   }
 }
 
-// ============ AD ROTATIONS ============
-function setupAdRotation(ids, interval = 3000) {
+// ============ AD ROTATION ============
+function setupAdRotation(ids, interval = 3500) {
   const imgs = ids.map(id => document.getElementById(id)).filter(Boolean);
   if (imgs.length < 2) return;
   let idx = 0;
@@ -1046,10 +1073,10 @@ function init() {
   updateUI();
   if (state.ownedVehicles.length > 0) startMining();
 
-  // تفعيل تبديل الإعلانات
-  setupAdRotation(['adGame1', 'adGame2']);
-  setupAdRotation(['adWithdraw1', 'adWithdraw2']);
-  setupAdRotation(['adRef1', 'adRef2']);
+  // تبديل الإعلانات في الأقسام الثلاثة
+  setupAdRotation(['adGame1', 'adGame2'], 3500);
+  setupAdRotation(['adWithdraw1', 'adWithdraw2'], 3500);
+  setupAdRotation(['adRef1', 'adRef2'], 3500);
 
   setTimeout(() => { registerReferral(); }, 1000);
 }
