@@ -100,32 +100,54 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   text-decoration: none;
   display: block;
   transition: transform 0.2s;
+  isolation: isolate;
 }
 .ad-banner-clickable:active { transform: scale(0.98); }
 
 .ad-banner-169 { aspect-ratio: 16 / 9; }
 
-.ad-img {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  object-fit: cover !important;
-  object-position: center !important;
-  display: block !important;
-  opacity: 0;
-  transition: opacity 1.2s ease-in-out;
-  z-index: 1;
+/* شريط الصور المنزلق */
+.ad-slider {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 200%;
+  height: 100%;
+  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
+}
+.ad-slider img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* نقاط المؤشر */
+.ad-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 6;
   pointer-events: none;
 }
-.ad-img.active {
-  opacity: 1;
-  z-index: 2;
+.ad-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  transition: background 0.4s, transform 0.4s;
+}
+.ad-dot.active {
+  background: #fff;
+  transform: scale(1.35);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
 }
 
 /* AD tag — زاوية عليا داخل الصورة */
@@ -366,9 +388,15 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
     <!-- GAME SCREEN -->
     <section id="gameScreen" class="screen active">
       <div class="ad-banner">
-        <img id="adGame1" src="AW1.png" alt="" class="ad-img active">
-        <img id="adGame2" src="AW2.png" alt="" class="ad-img">
-      </div>
+  <div class="ad-slider" data-ad-slider>
+    <img src="AW1.png" alt="">
+    <img src="AW2.png" alt="">
+  </div>
+  <div class="ad-dots" data-ad-dots>
+    <span class="ad-dot active"></span>
+    <span class="ad-dot"></span>
+  </div>
+</div>
       <div class="game-card glass">
         <div class="accrued-label">Accrued</div>
         <div class="accrued-value">
@@ -418,10 +446,18 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 
       <!-- AD BANNER Withdraw -->
       <a class="ad-banner ad-banner-clickable" href="https://t.me/flymage_bot?startapp=295200" target="_blank">
-        <img id="adWithdraw1" src="PP1.png" alt="" class="ad-img active">
-        <img id="adWithdraw2" src="PP2.png" alt="" class="ad-img">
-        <div class="ad-tag">AD</div>
-        <div class="ad-start-btn">START NOW</div>
+        <a class="ad-banner ad-banner-clickable" href="https://t.me/flymage_bot?startapp=295200" target="_blank">
+  <div class="ad-slider" data-ad-slider>
+    <img src="PP1.png" alt="">
+    <img src="PP2.png" alt="">
+  </div>
+  <div class="ad-tag">AD</div>
+  <div class="ad-start-btn">START NOW</div>
+  <div class="ad-dots" data-ad-dots>
+    <span class="ad-dot active"></span>
+    <span class="ad-dot"></span>
+  </div>
+</a>
       </a>
 
       <div class="withdraw-info glass">
@@ -488,10 +524,18 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 
       <!-- AD BANNER Referrals (16:9) -->
       <a class="ad-banner ad-banner-169 ad-banner-clickable" href="https://t.me/cryptson2_bot?startapp=97249" target="_blank">
-        <img id="adRef1" src="PP3.png" alt="" class="ad-img active">
-        <img id="adRef2" src="PP4.png" alt="" class="ad-img">
-        <div class="ad-tag">AD</div>
-        <div class="ad-start-btn">START NOW</div>
+        <a class="ad-banner ad-banner-169 ad-banner-clickable" href="https://t.me/cryptson2_bot?startapp=97249" target="_blank">
+  <div class="ad-slider" data-ad-slider>
+    <img src="PP3.png" alt="">
+    <img src="PP4.png" alt="">
+  </div>
+  <div class="ad-tag">AD</div>
+  <div class="ad-start-btn">START NOW</div>
+  <div class="ad-dots" data-ad-dots>
+    <span class="ad-dot active"></span>
+    <span class="ad-dot"></span>
+  </div>
+</a>
       </a>
 
       <div class="ref-benefits">
@@ -1063,40 +1107,25 @@ function createParticles() {
 }
 
 // ============ AD ROTATION ============
-function setupAdRotation(ids, interval = 3500) {
-  const imgs = ids.map(id => document.getElementById(id)).filter(Boolean);
-  if (imgs.length < 2) return;
-  
-  // تأكد أن الأولى فقط ظاهرة
-  imgs.forEach((img, i) => {
-    img.classList.toggle('active', i === 0);
-    img.style.transition = 'opacity 1.2s ease-in-out';
+function setupAdRotation() {
+  document.querySelectorAll('[data-ad-slider]').forEach(slider => {
+    const imgs = slider.querySelectorAll('img');
+    if (imgs.length < 2) return;
+
+    const dotsContainer = slider.parentElement.querySelector('[data-ad-dots]');
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('.ad-dot') : [];
+
+    // ضبط عرض الشريط حسب عدد الصور
+    slider.style.width = (imgs.length * 100) + '%';
+    imgs.forEach(img => { img.style.width = (100 / imgs.length) + '%'; });
+
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % imgs.length;
+      slider.style.transform = `translateX(-${idx * (100 / imgs.length)}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }, 3500);
   });
-
-  let idx = 0;
-  let busy = false;
-
-  setInterval(() => {
-    if (busy) return;
-    busy = true;
-
-    const next = (idx + 1) % imgs.length;
-    const current = imgs[idx];
-
-    // اجعل الصورة التالية تحت الصورة الحالية
-    imgs[next].classList.add('active');
-    imgs[next].style.zIndex = '3';
-    current.style.zIndex = '2';
-
-    // بعد انتهاء ظهور التالية، أزل الحالية
-    setTimeout(() => {
-      current.classList.remove('active');
-      current.style.zIndex = '1';
-      imgs[next].style.zIndex = '2';
-      idx = next;
-      busy = false;
-    }, 1200);
-  }, interval);
 }
 
 // ============ INIT ============
@@ -1111,9 +1140,7 @@ function init() {
   if (state.ownedVehicles.length > 0) startMining();
 
   // تبديل الإعلانات في الأقسام الثلاثة
-  setupAdRotation(['adGame1', 'adGame2'], 3500);
-  setupAdRotation(['adWithdraw1', 'adWithdraw2'], 3500);
-  setupAdRotation(['adRef1', 'adRef2'], 3500);
+  setupAdRotation();
 
   setTimeout(() => { registerReferral(); }, 1000);
 }
