@@ -105,17 +105,24 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 
 .ad-banner-169 { aspect-ratio: 16 / 9; }
 
-.ad-img {
+..ad-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.9s ease-in-out;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: opacity;
+  transition: opacity 1.2s ease-in-out;
   z-index: 1;
+  pointer-events: none;
 }
-.ad-img.active { opacity: 1; z-index: 2; }
+.ad-img.active {
+  opacity: 1;
+  z-index: 2;
+}
 
 /* AD tag — زاوية عليا داخل الصورة */
 .ad-tag {
@@ -1055,10 +1062,36 @@ function createParticles() {
 function setupAdRotation(ids, interval = 3500) {
   const imgs = ids.map(id => document.getElementById(id)).filter(Boolean);
   if (imgs.length < 2) return;
+  
+  // تأكد أن الأولى فقط ظاهرة
+  imgs.forEach((img, i) => {
+    img.classList.toggle('active', i === 0);
+    img.style.transition = 'opacity 1.2s ease-in-out';
+  });
+
   let idx = 0;
+  let busy = false;
+
   setInterval(() => {
-    idx = (idx + 1) % imgs.length;
-    imgs.forEach((img, i) => img.classList.toggle('active', i === idx));
+    if (busy) return;
+    busy = true;
+
+    const next = (idx + 1) % imgs.length;
+    const current = imgs[idx];
+
+    // اجعل الصورة التالية تحت الصورة الحالية
+    imgs[next].classList.add('active');
+    imgs[next].style.zIndex = '3';
+    current.style.zIndex = '2';
+
+    // بعد انتهاء ظهور التالية، أزل الحالية
+    setTimeout(() => {
+      current.classList.remove('active');
+      current.style.zIndex = '1';
+      imgs[next].style.zIndex = '2';
+      idx = next;
+      busy = false;
+    }, 1200);
   }, interval);
 }
 
