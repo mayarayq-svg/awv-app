@@ -1,6 +1,8 @@
 import os
 import logging
 import asyncio
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, ContextTypes
 import aiohttp
@@ -10,14 +12,37 @@ WEBAPP_URL = "https://mayarayq-svg.github.io/awv-app/"
 SUPABASE_URL = "https://geepmianewmjkttbnqkl.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZXBtaWFuZXdtamt0dGJucWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NjU1ODIsImV4cCI6MjEwNjU0MTU4Mn0.Fv5DtKqIcNDyK1ifzZ-f_35-zjqOa8Wlq4IT7PXP5QM"
 
-# ⚠️ ضع معرفك هنا (ID تيليجرام) لتكون أنت الوحيد الذي يمكنه البث
-ADMIN_ID = 7931994096  # ← غيّر هذا إلى رقمك
+ADMIN_ID = 793199496
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
 )
 
+# ========== DUMMY WEB SERVER ==========
+class DummyHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-Type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b'AWV Bot is running')
+    def do_HEAD(self):
+        self.send_response(200)
+        self.end_headers()
+    def log_message(self, format, *args):
+        pass
+
+def start_dummy_server():
+    port = int(os.environ.get("PORT", 10000))
+    server = HTTPServer(('0.0.0.0', port), DummyHandler)
+    print(f"✅ Dummy server on port {port}")
+    server.serve_forever()
+
+def run_dummy_in_thread():
+    thread = threading.Thread(target=start_dummy_server, daemon=True)
+    thread.start()
+
+# ========== KEYBOARDS ==========
 def get_main_keyboard():
     return InlineKeyboardMarkup([[
         InlineKeyboardButton(
@@ -26,6 +51,7 @@ def get_main_keyboard():
         )
     ]])
 
+# ========== COMMANDS ==========
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = get_main_keyboard()
     welcome = (
@@ -39,9 +65,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🚀 *Tap the button below to start:*"
     )
     await update.message.reply_text(
-        welcome,
-        reply_markup=keyboard,
-        parse_mode="Markdown"
+        welcome, reply_markup=keyboard, parse_mode="Markdown"
     )
 
 async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -68,16 +92,11 @@ async def invite_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"💰 Earn *0.02 AWV* for each friend!"
     )
     await update.message.reply_text(
-        text,
-        reply_markup=get_main_keyboard(),
-        parse_mode="Markdown"
+        text, reply_markup=get_main_keyboard(), parse_mode="Markdown"
     )
 
-# ==========================================
-# 📢 BROADCAST - إرسال رسالة لكل المستخدمين
-# ==========================================
+# ========== BROADCAST ==========
 async def get_all_user_ids():
-    """جلب كل معرّفات المستخدمين من Supabase"""
     url = f"{SUPABASE_URL}/rest/v1/users?select=telegram_id"
     headers = {
         "apikey": SUPABASE_KEY,
@@ -90,44 +109,33 @@ async def get_all_user_ids():
                     data = await resp.json()
                     return [u["telegram_id"] for u in data]
     except Exception as e:
-        print(f"Error fetching users: {e}")
+        print(f"Error: {e}")
     return []
 
 async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """الأمر: /broadcast <الرسالة>"""
     user_id = update.effective_user.id
-
-    # تحقق من صلاحية المشرف
-    if ADMIN_ID != 7931994096 and user_id != ADMIN_ID:
+    if ADMIN_ID != 0 and user_id != ADMIN_ID:
         await update.message.reply_text("❌ You are not authorized.")
         return
 
-    # الحصول على الرسالة
     if not context.args:
         await update.message.reply_text(
-            "📢 *How to use:*\n\n"
-            "`/broadcast Your message here`\n\n"
-            "The message will be sent to all users with the Open AWV button.",
+            "📢 *How to use:*\n\n`/broadcast Your message`",
             parse_mode="Markdown"
         )
         return
 
     message_text = " ".join(context.args)
-
-    # إشعار البدء
     status_msg = await update.message.reply_text(
         "📢 *Broadcasting...*\n\nPlease wait...",
         parse_mode="Markdown"
     )
 
-    # جلب المستخدمين
     user_ids = await get_all_user_ids()
-
     if not user_ids:
         await status_msg.edit_text("❌ No users found.")
         return
 
-    # إرسال لكل مستخدم
     success = 0
     failed = 0
     keyboard = get_main_keyboard()
@@ -141,13 +149,10 @@ async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 parse_mode="Markdown"
             )
             success += 1
-            # تأخير بسيط لتجنب الحظر من تيليجرام
             await asyncio.sleep(0.05)
-        except Exception as e:
+        except Exception:
             failed += 1
-            print(f"Failed to send to {uid}: {e}")
 
-    # تقرير
     await status_msg.edit_text(
         f"✅ *Broadcast complete!*\n\n"
         f"• Sent: {success}\n"
@@ -156,6 +161,7 @@ async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode="Markdown"
     )
 
+# ========== MAIN ==========
 async def main_async():
     if not BOT_TOKEN:
         print("❌ BOT_TOKEN missing!")
@@ -173,6 +179,7 @@ async def main_async():
     await stop_signal.wait()
 
 def main():
+    run_dummy_in_thread()
     try:
         asyncio.run(main_async())
     except (KeyboardInterrupt, SystemExit):
