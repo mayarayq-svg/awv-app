@@ -750,6 +750,8 @@ async function registerReferral() {
 
       if (refs) {
         state.referral.count = refs.length;
+        console.log('🎯 Referrals count updated:', refs.length);
+        console.log('🎯 Referrals list:', refs);
         state.referral.totalIncome = refs.length * CONFIG.REFERRAL_REWARD;
         state.referral.history = refs.map(r => ({
           date: new Date(r.created_at).toLocaleDateString(),
