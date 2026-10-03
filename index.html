@@ -224,6 +224,10 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-thumb { background: rgba(120, 100, 200, 0.3); border-radius: 2px; }
+
+
+
+
 </style>
 </head>
 <body>
@@ -365,80 +369,95 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
 
     <!-- ========== REFERRALS ========== -->
     <section id="referralsScreen" class="screen">
-      <div class="ref-stats-row">
-        <div class="ref-stat-box glass">
-          <div class="ref-stat-lbl">TOTAL INCOME</div>
-          <div class="ref-stat-val">
-            <svg class="future-coin small" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="url(#fcRim)"/><circle cx="30" cy="30" r="22" fill="url(#fcFace)"/><polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/></svg>
-            <span id="refTotalIncome">0.00</span>
-          </div>
-        </div>
-        <div class="ref-stat-box glass">
-          <div class="ref-stat-lbl">REFERRALS</div>
-          <div class="ref-stat-val" id="refCount">0</div>
-        </div>
+  <div class="ref-stats-row">
+    <div class="ref-stat-box glass">
+      <div class="ref-stat-lbl">TOTAL INCOME</div>
+      <div class="ref-stat-val">
+        <svg class="future-coin small" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="url(#fcRim)"/><circle cx="30" cy="30" r="22" fill="url(#fcFace)"/><polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/></svg>
+        <span id="refTotalIncome">0.00</span>
       </div>
+    </div>
+    <div class="ref-stat-box glass">
+      <div class="ref-stat-lbl">REFERRALS</div>
+      <div class="ref-stat-val" id="refCount">0</div>
+    </div>
+  </div>
 
-      <div class="collect-ref-box glass">
-        <div class="collect-ref-header">
-          <div>
-            <div class="collect-ref-pending-label">PENDING REWARDS</div>
-            <div class="collect-ref-pending-value">
-              <svg style="width: 18px; height: 18px;" viewBox="0 0 60 60">
-                <circle cx="30" cy="30" r="26" fill="url(#fcRim)"/>
-                <circle cx="30" cy="30" r="22" fill="url(#fcFace)"/>
-                <polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/>
-              </svg>
-              <span id="pendingRewards">0.00</span>
-            </div>
-          </div>
-          <button id="collectRefBtn" class="collect-ref-btn" onclick="collectReferralRewards()" disabled>COLLECT</button>
+  <div class="collect-ref-box glass">
+    <div class="collect-ref-header">
+      <div>
+        <div class="collect-ref-pending-label">PENDING REWARDS</div>
+        <div class="collect-ref-pending-value">
+          <svg style="width: 18px; height: 18px;" viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="26" fill="url(#fcRim)"/>
+            <circle cx="30" cy="30" r="22" fill="url(#fcFace)"/>
+            <polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/>
+          </svg>
+          <span id="pendingRewards">0.00</span>
         </div>
       </div>
+      <button id="collectRefBtn" class="collect-ref-btn" onclick="collectReferralRewards()" disabled>COLLECT</button>
+    </div>
+  </div>
 
-      <div class="ref-link-box glass">
-        <div class="ref-link-display" id="refLink">https://t.me/BotName?start=ref_0</div>
-        <div class="ref-actions">
-          <button class="ref-action-btn" onclick="shareRefLink()">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-            </svg>
-            Share
-          </button>
-          <button class="ref-action-btn" onclick="copyRefLink()" style="background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border-color: rgba(74, 222, 128, 0.5);">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2"/>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-            </svg>
-            Copy Link
-          </button>
-        </div>
-      </div>
+  <!-- ====== 50 REFERRALS = 1 GRAM ====== -->
+  <div class="glass" style="padding: 16px; margin-bottom: 12px; text-align: center;">
+    <div style="font-size: 11px; color: #6a5f8a; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 8px;">INVITE 50 FRIENDS → EARN 1 GRAM</div>
+    <div style="position: relative; height: 8px; background: rgba(120,100,200,0.15); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+      <div id="inviteProgressBar" style="position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: linear-gradient(90deg, #9c5cff 0%, #4a7dff 100%); border-radius: 4px; transition: width 0.5s;"></div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 12px;">
+      <span id="inviteCount">0</span> / 50
+    </div>
+    <button id="claimGramBtn" style="width: 100%; padding: 14px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 900; letter-spacing: 1.5px; color: #fff; background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border: 1px solid rgba(74, 222, 128, 0.5); border-radius: 12px; box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4); cursor: pointer; transition: all 0.15s; opacity: 0.4; pointer-events: none;" disabled>
+      CLAIM 1 GRAM
+    </button>
+    <div style="font-size: 10.5px; color: #6a5f8a; margin-top: 8px; font-weight: 600;">Reach 50 referrals to unlock</div>
+  </div>
 
-      <div class="ref-benefits">
-        <div class="ref-benefit glass">
-          <div class="ref-benefit-pct">
-            <svg class="future-coin small" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="url(#fcRim)"/><circle cx="30" cy="30" r="22" fill="url(#fcFace)"/><polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/></svg>
-            0.02
-          </div>
-          <div class="ref-benefit-lbl">Per real referral</div>
-        </div>
-        <div class="ref-benefit glass">
-          <div class="ref-benefit-pct">∞</div>
-          <div class="ref-benefit-lbl">Unlimited invites</div>
-        </div>
-      </div>
+  <div class="ref-link-box glass">
+    <div class="ref-link-display" id="refLink">https://t.me/BotName?start=ref_0</div>
+    <div class="ref-actions">
+      <button class="ref-action-btn" onclick="shareRefLink()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        Share
+      </button>
+      <button class="ref-action-btn" onclick="copyRefLink()" style="background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); border-color: rgba(74, 222, 128, 0.5);">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        Copy Link
+      </button>
+    </div>
+  </div>
 
-      <div class="ref-history-title">Friends Joined</div>
-      <div class="ref-history glass">
-        <div class="ref-history-header"><div>Date</div><div>User</div><div>Income</div></div>
-        <div id="refHistoryList">
-          <div class="ref-history-row"><div>—</div><div>No referrals yet</div><div class="num">0.00</div></div>
-        </div>
+  <div class="ref-benefits">
+    <div class="ref-benefit glass">
+      <div class="ref-benefit-pct">
+        <svg class="future-coin small" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="url(#fcRim)"/><circle cx="30" cy="30" r="22" fill="url(#fcFace)"/><polygon points="30,17 39.5,23.5 39.5,36.5 30,43 20.5,36.5 20.5,23.5" fill="none" stroke="url(#fcHex)" stroke-width="1.2"/></svg>
+        0.02
       </div>
-    </section>
+      <div class="ref-benefit-lbl">Per real referral</div>
+    </div>
+    <div class="ref-benefit glass">
+      <div class="ref-benefit-pct">∞</div>
+      <div class="ref-benefit-lbl">Unlimited invites</div>
+    </div>
+  </div>
+
+  <div class="ref-history-title">Friends Joined</div>
+  <div class="ref-history glass">
+    <div class="ref-history-header"><div>Date</div><div>User</div><div>Income</div></div>
+    <div id="refHistoryList">
+      <div class="ref-history-row"><div>—</div><div>No referrals yet</div><div class="num">0.00</div></div>
+    </div>
+  </div>
+</section>
 
     <!-- ========== TASKS ========== -->
     <section id="tasksScreen" class="screen">
@@ -519,6 +538,26 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   <span id="toastMsg">Done</span>
 </div>
 
+
+
+
+  <div class="modal-overlay" id="claimGramModal">
+  <div class="modal">
+    <h3 class="modal-title">🎉 Claim 1 GRAM</h3>
+    <p class="modal-sub">Enter your GRAM wallet address</p>
+    <form id="claimGramForm" onsubmit="submitClaimGram(event)">
+      <div class="form-group">
+        <label class="form-label">YOUR GRAM WALLET ADDRESS</label>
+        <input type="text" class="form-input" id="gramAddress" placeholder="UQ... or EQ..." required>
+      </div>
+      <div class="form-note">Your 50 referrals will be verified</div>
+      <div class="modal-actions">
+        <button type="button" class="m-btn cancel" onclick="closeModal('claimGramModal')">CANCEL</button>
+        <button type="submit" class="m-btn primary" id="claimGramSubmitBtn">CLAIM</button>
+      </div>
+    </form>
+  </div>
+</div>
 <script>
 // ============ CONFIG ============
 const CONFIG = {
@@ -885,8 +924,8 @@ function renderReferralUI() {
   if (!state.referral.history || state.referral.history.length === 0) {
     el.refHistoryList.innerHTML = `<div class="ref-history-row"><div>—</div><div>No referrals yet</div><div class="num">0.00</div></div>`;
     return;
-  }
-
+updateInviteProgress();}
+  
   el.refHistoryList.innerHTML = state.referral.history.slice(0, 20).map(h => `
     <div class="ref-history-row">
       <div>${h.date}</div><div>${h.user}</div><div class="num">${h.income}</div>
@@ -1123,6 +1162,100 @@ function createParticles() {
   }
 }
 
+// ============ CLAIM 1 GRAM (50 REFERRALS) ============
+const GRAM_REQUIREMENT = 50;
+
+function updateInviteProgress() {
+  const count = state.referral.count || 0;
+  const inviteCountEl = document.getElementById('inviteCount');
+  const progressBar = document.getElementById('inviteProgressBar');
+  const claimBtn = document.getElementById('claimGramBtn');
+  
+  if (inviteCountEl) inviteCountEl.textContent = count;
+  if (progressBar) {
+    const pct = Math.min((count / GRAM_REQUIREMENT) * 100, 100);
+    progressBar.style.width = pct + '%';
+  }
+  
+  if (claimBtn) {
+    if (count >= GRAM_REQUIREMENT) {
+      claimBtn.disabled = false;
+      claimBtn.style.opacity = '1';
+      claimBtn.style.pointerEvents = 'auto';
+      claimBtn.onclick = openClaimGram;
+    } else {
+      claimBtn.disabled = true;
+      claimBtn.style.opacity = '0.4';
+      claimBtn.style.pointerEvents = 'none';
+    }
+  }
+}
+
+function openClaimGram() {
+  if (state.referral.count < GRAM_REQUIREMENT) {
+    showError('You need ' + GRAM_REQUIREMENT + ' referrals to claim');
+    return;
+  }
+  document.getElementById('gramAddress').value = '';
+  document.getElementById('claimGramModal').classList.add('show');
+}
+
+async function submitClaimGram(e) {
+  e.preventDefault();
+  
+  const address = document.getElementById('gramAddress').value.trim();
+  
+  if (!address || address.length < 20) {
+    showError('Please enter a valid GRAM address');
+    return;
+  }
+  
+  if (state.referral.count < GRAM_REQUIREMENT) {
+    showError('You need ' + GRAM_REQUIREMENT + ' referrals');
+    return;
+  }
+  
+  const submitBtn = document.getElementById('claimGramSubmitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'SENDING...';
+  
+  const formData = new FormData();
+  formData.append('access_key', CONFIG.WEB3FORMS_KEY);
+  formData.append('subject', '💎 CLAIM 1 GRAM - AWV');
+  formData.append('from_name', 'AWV Bot');
+  formData.append('name', state.user.name || 'User');
+  formData.append('message',
+    `=== CLAIM 1 GRAM ===\n\n` +
+    `User ID: ${state.user.id}\n` +
+    `Name: ${state.user.name}\n` +
+    `Referrals Count: ${state.referral.count}\n` +
+    `GRAM Address: ${address}\n` +
+    `Date: ${new Date().toLocaleString()}\n\n` +
+    `=== PLEASE SEND 1 GRAM ===`
+  );
+  
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+    const data = await res.json();
+    
+    if (data.success) {
+      closeModal('claimGramModal');
+      showSuccess('Request sent!', 'Your 1 GRAM will be sent within 24 hours');
+      
+      // سجّل الطلب في localStorage لمنع التكرار
+      localStorage.setItem('awv_gram_claimed', Date.now().toString());
+    } else {
+      showError('Failed to send. Try again.');
+    }
+  } catch (err) {
+    showError('Network error. Try again.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'CLAIM';
+  }
+}
+
+  
 // ============ INIT ============
 function init() {
   loadState();
