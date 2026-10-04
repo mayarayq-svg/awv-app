@@ -795,12 +795,29 @@ async function collectReferralRewards() {
 function renderTasks() {
   el.taskList.innerHTML = TASKS.map(task => {
     const completed = state.completedTasks.includes(task.id);
+    
+    // اختيار الأيقونة حسب الرابط
+    let iconSVG = '';
+    let iconBg = '';
+    
+    if (task.url.includes('youtube.com') || task.url.includes('youtu.be')) {
+      // YouTube icon
+      iconSVG = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>';
+      iconBg = 'linear-gradient(135deg, #FF0000, #CC0000)';
+    } else if (task.url.includes('t.me')) {
+      // Telegram icon
+      iconSVG = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.108c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.966-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>';
+      iconBg = 'linear-gradient(135deg, #229ED9, #0088cc)';
+    } else {
+      // Default
+      iconSVG = '<svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="10"/></svg>';
+      iconBg = 'linear-gradient(135deg, #9c5cff, #4a7dff)';
+    }
+    
     return `
       <div class="task-item ${completed ? 'completed' : ''}" onclick="handleTaskClick('${task.id}')">
-        <div class="task-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.108c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.966-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-          </svg>
+        <div class="task-icon" style="background: ${iconBg};">
+          ${iconSVG}
         </div>
         <div class="task-info">
           <div class="task-name">${task.name}</div>
