@@ -364,6 +364,10 @@ body { font-family: var(--sans); color: var(--text-1); user-select: none; font-s
   overflow: hidden;
   z-index: 1;
 }
+  /* 2.35:1 Cinematic Ratio for ad4 */
+.adsy-frame.cinema {
+  aspect-ratio: 2.35 / 1;
+}
 .adsy-frame img {
   position: absolute;
   inset: 0;
@@ -929,7 +933,8 @@ const GAME_CONFIG = {
 const ADS = [
   { id: 'ad1', img1: 'PP1.png', img2: 'PP2.png', buttonUrl: 'https://t.me/flymage_bot?startapp=295200' },
   { id: 'ad2', img1: 'PP3.png', img2: 'PP4.png', buttonUrl: 'https://t.me/cryptson2_bot?startapp=97249' },
-  { id: 'ad3', img1: 'PP5.png', img2: null, buttonUrl: 'https://t.me/AdTubesBot/AdTubes?startapp=r7931994096', single: true }
+  { id: 'ad3', img1: 'PP5.png', img2: null, buttonUrl: 'https://t.me/AdTubesBot/AdTubes?startapp=r7931994096', single: true },
+  { id: 'ad4', img1: 'PP6.png', img2: 'PP7.png', buttonUrl: 'https://t.me/play_watchbot', ratio: '2.35' }
 ];
 
 const TASKS = [
@@ -1552,8 +1557,16 @@ function showAdModal(callback) {
   const closeBtn = document.getElementById('adsyCloseBtn');
   const progressFill = document.getElementById('adsyProgressFill');
   container.classList.remove('closing');
-  img1.className = ''; img2.className = '';
-  img1.src = ad.img1;
+img1.className = ''; img2.className = '';
+img1.src = ad.img1;
+
+// Handle cinematic ratio (2.35:1) for specific ads
+const frame = document.getElementById('adsyFrame');
+if (ad.ratio === '2.35') {
+  frame.classList.add('cinema');
+} else {
+  frame.classList.remove('cinema');
+}
   if (ad.single || !ad.img2) {
     img2.style.display = 'none';
     img1.className = 'active pulse-ad';
